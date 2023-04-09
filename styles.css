@@ -1,0 +1,312 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #FEFEFE;
+    color: #333;
+    font-family: 'DM Sans', sans-serif;
+
+    transition: all 2s;
+}
+
+body.switch {
+    background-color: #555977;
+    color: rgb(235, 235, 235);
+}
+
+#container {
+    display: flex;
+    gap: 30px;
+
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    max-height: 750px;
+    /* make sure the columns don't get too small and text stays readable */
+    min-width: 900px;
+}
+
+header {
+/* }
+
+#banner { */
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+    justify-content: space-around;
+
+    width: 45vw;
+    height: 100vh;
+    color: #333;
+}
+
+#headerText {
+    margin-top: 60px;
+    margin-left: 60px;
+} 
+
+h1 {
+    font-size: 3em;
+    margin: 16px 0;
+}
+
+h2 {
+    font-size: 1.8em;
+    font-weight: 500;
+    margin: 16px 0;
+}
+
+#headerText h3 {
+    font-size: 1.3em;
+    font-weight: 400;
+    opacity: 0.7;
+    margin: 4px 0;
+}
+
+#banner.switch {
+    color: rgb(235, 235, 235);
+    transition: all 2s;
+}
+
+image {
+    width: 90%;
+}
+
+#images {
+    position: relative;
+}
+
+#desk {
+    display: block;
+    margin-bottom: 30px;
+    z-index: -2;
+    transition: all 2s;
+}
+
+#lamp {
+    position: absolute;
+    left: 15%;
+    top: 9%;
+}
+
+#lampHead {
+    position: absolute;
+    left: 22%;
+    top: 6%;
+    z-index: 2;
+}
+.swivel {
+    animation-name: swivel;
+    animation-delay: 1s;
+    animation-duration: 6s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes swivel {
+    0%,100% {transform: rotate(0deg);}
+    10%, 20% {transform: rotate(8deg);}
+    15%, 30% {transform: rotate(-8deg);}
+    35% {transform: rotate(0deg);}
+}
+
+#lampSwitchArea {
+    /* background-color: #3F4A5B; */
+    position: absolute;
+    left: 21%;
+    top: 7.5%;
+    width: 50px;
+    height: 30px;
+    z-index: 3;
+}
+
+#lampSwitchArea:hover {
+    cursor: pointer;
+}
+
+#light {
+    position: absolute;
+    left: 22%;
+    top: 2%;
+    opacity: 0;
+    z-index: 0;
+}
+
+.flicker {
+    animation-name: flicker;
+    animation-delay: 1.5s;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes flicker {
+    0% {opacity: 1;}
+    10% {opacity: 0;}
+    20% {opacity: 1;}
+    30% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+/* ------ general section styling  ------ */
+
+main {
+    display: grid;
+    grid-template-columns: 25vw 25vw;
+    grid-template-rows: 45vh 37vh;
+    gap: 10px;
+
+    /* justify-content: space-evenly; */
+    margin: auto;
+}
+
+main section {
+    padding: 16px 28px;
+    border-radius: 6px;
+ 
+    transition: background-color 2s;
+}
+
+section h3 {
+    margin: 16px 0 8px;
+}
+
+a {
+    text-decoration: none;
+}
+
+ol,
+ul {
+    list-style-type: none;
+    margin: 8px 0;
+    padding-left: 0;
+}
+
+section li {
+    padding-left: 8px;
+}
+
+section a {
+    line-height: 1.1em;
+    display: inline-block;
+    padding: .5em;
+    color: #333;
+}
+
+section.switch a, section.switch h3 {
+    color: #c3c3c3;
+}
+
+/* ------ specific section styling  ------ */
+
+/* projects section */
+
+#projects {
+    background-color: #C0E3F6;
+}
+
+#projects a:hover {
+    background-color: #6cbce7;
+    color: #333;
+}
+
+#projects.switch {
+   background-color: #435175; 
+}
+
+#projects.switch a:hover {
+    background-color: #5396b9;
+    color:#333;
+}
+
+/* development section */
+
+#development {
+    background-color: #B3CEA1;
+}
+
+#development ul {
+    display: flex;
+    gap: 16px;
+}
+
+#development a:hover {
+    background-color: #7ea564;
+    color: #333;
+}
+
+#development.switch {
+    background-color: #3F4A5B;
+}
+
+#development.switch a:hover {
+    background-color: #62884a;
+    color:#333;
+}
+
+/* research section */
+
+#research {
+    background-color: #FFD596;
+}
+
+#research a:hover {
+    background-color: orange;
+    color: #333;
+}
+
+#research.switch {
+    background-color: #54474E;
+}
+
+#research.switch a:hover {
+    background-color: rgb(194, 126, 0);
+    color:#333;
+}
+
+/* capstone section */
+
+#capstone {
+    background-color: #BCB0D0;
+}
+
+#capstone a:hover {
+    background-color: #8f7ab1;
+    color: #333;
+}
+
+#capstone.switch {
+    background-color: #41416A;
+}
+
+/* ------ switch button styling  ------ */
+
+button {
+    /* position: absolute;
+    top: 20px;
+    right: 20px; */
+    padding: 12px;
+    background-color: orange;
+    color: #333;
+    border: 1px solid transparent;
+}
+
+button:hover {
+    background-color: coral;
+    cursor: pointer;
+}
+
+button.switch {
+    background-color: rgb(235, 235, 235);
+    border-color: #333;
+}
+
+button.switch:hover {
+    background-color: #333;
+    color: rgb(235, 235, 235)
+}
+
+/* ------ transition animation styling  ------ */
