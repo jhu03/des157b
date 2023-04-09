@@ -20,7 +20,7 @@
 
     <div id="container">
 
-        <header id="banner">
+        <header>
 
             <!--this is for the interactive banner-->
                 <div id="headerText">
@@ -32,28 +32,40 @@
                     </h2>  
 
                     <h3>sq2023</h3>
+
+                    <!-- action prompt in case users don't know how to interact with the page -->
+                    <p class="textPrompt">It’s getting late...<br>you should probably <span>turn off the lights</span> and take a break</p>   
+                   
                 </div>
 
                 <div id="images">
                     <img src="images/desk.png" width="630" height="315" alt="desk illustration" id="desk">
 
                     <div>
+                        <!-- desk images -->
                         <img src="images/lamp.png" width="55" height="86" alt="desk lamp" id="lamp">
                         <img src="images/lampHead.png" width="47" height="42" alt="lamp head" id="lampHead" class="swivel">
+                        <img src="images/light.png" width="134" height="126" alt="lamp light" id="light">
+
+                        <!-- toggle button -->
                         <div id="lampSwitchArea"></div>
-                         <img src="images/light.png" width="134" height="126" alt="lamp light" id="light">
+
+
+                        <!-- monitor animations images -->
+                        <img src="images/figma.gif" width="123" height="78" alt="screensaver gif" class="desktop">
+                        
+                        <img src="images/screenSaver.gif" width="123" height="78" alt="screensaver gif for desktop" id="desktopScreenSaver" class="hidden desktop">
+
+                        <img src="images/screenSaver.gif" width="67" height="44" alt="screensaver gif for laptop" id="laptop" class="hidden">
                     </div>
                     
                 </div>
-               
 
         </header>
 
         <main>
 
             <section id="projects">
-
-                <!-- <div> -->
                    <h3>ministudios</h3>
                     <nav>
                         <ol>
@@ -62,10 +74,7 @@
                             <li><a href="#">library liberty</a></li>
                         </ol>
                     </nav>  
-                <!-- </div> -->
-               
 
-                <!-- <div> -->
                     <h3>toolkit</h3>
                     <nav>
                         <ol>
@@ -74,9 +83,6 @@
                             <li><a href="#">arrow functions</a></li>
                         </ol>
                     </nav>
-                <!-- </div> -->
-                
-
             </section>
 
             <section id="research">
@@ -97,7 +103,6 @@
                         </li>
                     </ul>
                 </nav>
-
             </section>
 
             <section id="development">

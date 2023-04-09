@@ -7,6 +7,8 @@ body {
     color: #333;
     font-family: 'DM Sans', sans-serif;
 
+    margin: auto;
+
     transition: all 2s;
 }
 
@@ -22,18 +24,20 @@ body.switch {
     position: relative;
     width: 100%;
     max-width: 1200px;
-    max-height: 750px;
-    /* make sure the columns don't get too small and text stays readable */
     min-width: 900px;
+    max-height: 750px;
 }
 
-header {
-/* }
+.hidden {
+    opacity: 0;
+}
 
-#banner { */
+/* ------ banner styling  ------ */
+
+header {
     display: flex;
     flex-direction: column;
-    gap: 120px;
+    gap: 30px;
     justify-content: space-around;
 
     width: 45vw;
@@ -43,7 +47,7 @@ header {
 
 #headerText {
     margin-top: 60px;
-    margin-left: 60px;
+    padding-left: 60px;
 } 
 
 h1 {
@@ -64,10 +68,36 @@ h2 {
     margin: 4px 0;
 }
 
-#banner.switch {
+header p {
+    line-height: 1.6em;
+    margin-top: 80px;
+    opacity: 0;
+}
+
+.textPrompt {
+    animation: prompt;
+    animation-delay: 10s;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes prompt {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+header span {
+    color: #5396b9;
+}
+
+#header.switch {
     color: rgb(235, 235, 235);
     transition: all 2s;
 }
+
+/* ------ images/desk styling  ----- */
 
 image {
     width: 90%;
@@ -75,27 +105,62 @@ image {
 
 #images {
     position: relative;
+    width: fit-content;
 }
 
 #desk {
     display: block;
+    position: relative;
     margin-bottom: 30px;
     z-index: -2;
     transition: all 2s;
 }
 
+.screenSaver {
+    animation: screenSaver;
+    animation-delay: 3s;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes screenSaver {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.desktop {
+    position: absolute;
+    right: 23.8%;
+    top: 2%;
+}
+
+#desktopScreenSaver {
+    opacity: 0;
+}
+
+#laptop {
+    position: absolute;
+    right: 48%;
+    top: 8.5%;
+
+    opacity: 0;
+}
+
 #lamp {
     position: absolute;
-    left: 15%;
+    left: 12%;
     top: 9%;
 }
 
 #lampHead {
     position: absolute;
-    left: 22%;
+    left: 18%;
     top: 6%;
     z-index: 2;
 }
+
 .swivel {
     animation-name: swivel;
     animation-delay: 1s;
@@ -115,7 +180,7 @@ image {
 #lampSwitchArea {
     /* background-color: #3F4A5B; */
     position: absolute;
-    left: 21%;
+    left: 18%;
     top: 7.5%;
     width: 50px;
     height: 30px;
@@ -128,7 +193,7 @@ image {
 
 #light {
     position: absolute;
-    left: 22%;
+    left: 18%;
     top: 2%;
     opacity: 0;
     z-index: 0;
@@ -159,8 +224,8 @@ main {
     grid-template-rows: 45vh 37vh;
     gap: 10px;
 
-    /* justify-content: space-evenly; */
-    margin: auto;
+    margin: 60px auto;
+    z-index: 3;
 }
 
 main section {
@@ -308,5 +373,3 @@ button.switch:hover {
     background-color: #333;
     color: rgb(235, 235, 235)
 }
-
-/* ------ transition animation styling  ------ */
