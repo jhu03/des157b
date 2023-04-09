@@ -294,7 +294,7 @@ section.switch a, section.switch h3 {
     background-color: #B3CEA1;
 }
 
-#development ul {
+#development div {
     display: flex;
     gap: 16px;
 }
