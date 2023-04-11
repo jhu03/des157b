@@ -26,9 +26,9 @@
         lampSwitchGlow.className = 'hidden';
     })
 
-    // textPrompt.addEventListener('animationend', function(){
-    //     lampSwitchGlow.className = 'pulse';
-    // })
+    textPrompt.addEventListener('animationend', function(){
+        lampSwitchGlow.className = 'pulse';
+    })
 
     lampSwitch.addEventListener('click', function() {
         if (mode === 'dark') {
