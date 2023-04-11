@@ -258,12 +258,10 @@ main section {
 
 section h3 {
     margin: 16px 0 8px;
-    transition: color 1s;
 }
 
 a {
     text-decoration: none;
-    transition: color 1s;
 }
 
 ol,
