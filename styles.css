@@ -14,7 +14,7 @@ body {
 
 body.switch {
     background-color: #555977;
-    color: rgb(235, 235, 235);
+    color: rgb(236, 236, 236);
 }
 
 #container {
@@ -93,7 +93,7 @@ header span {
     color: #5396b9;
 }
 
-#header.switch {
+header.switch {
     color: rgb(235, 235, 235);
     transition: all 2s;
 }
@@ -192,6 +192,26 @@ image {
     cursor: pointer;
 }
 
+#lampSwitchGlow {
+    position: absolute;
+    left: 15.9%;
+    top: 1.5%;
+    transition: all 1s;
+    z-index: -2;
+}
+
+.pulse {
+    animation-name: pulse;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes pulse {
+    0%, 100% {opacity: 0;}
+    50% {opacity: 1;}
+}
+
 #light {
     position: absolute;
     left: 18%;
@@ -238,10 +258,12 @@ main section {
 
 section h3 {
     margin: 16px 0 8px;
+    transition: color 1s;
 }
 
 a {
     text-decoration: none;
+    transition: color 1s;
 }
 
 ol,
@@ -348,29 +370,3 @@ section.switch a, section.switch h3 {
     background-color: #41416A;
 }
 
-/* ------ switch button styling  ------ */
-
-button {
-    /* position: absolute;
-    top: 20px;
-    right: 20px; */
-    padding: 12px;
-    background-color: orange;
-    color: #333;
-    border: 1px solid transparent;
-}
-
-button:hover {
-    background-color: coral;
-    cursor: pointer;
-}
-
-button.switch {
-    background-color: rgb(235, 235, 235);
-    border-color: #333;
-}
-
-button.switch:hover {
-    background-color: #333;
-    color: rgb(235, 235, 235)
-}

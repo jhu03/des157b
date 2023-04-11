@@ -8,12 +8,27 @@
     const desktop = document.querySelector('.desktop');
     const desktopDark = document.querySelector('#desktopScreenSaver');
     const laptop = document.querySelector('#laptop');
-    const lamp = document.querySelector('#lamp')
-    const lampSwitch = document.querySelector('#lampSwitchArea')
+    const lamp = document.querySelector('#lamp');
+    const lampSwitch = document.querySelector('#lampSwitchArea');
+    const lampSwitchGlow = document.querySelector('#lampSwitchGlow');
     const lampHead = document.querySelector('#lampHead');
     const light = document.querySelector('#light');
-    const sections = document.querySelectorAll('section')
+    const sections = document.querySelectorAll('section');
     let mode = 'dark';
+
+    lampSwitch.addEventListener('mouseover', function(){
+        lampSwitchGlow.classList.remove('hidden');
+        lampSwitchGlow.className = 'pulse';
+    })
+
+    lampSwitch.addEventListener('mouseout', function(){
+        lampSwitchGlow.classList.remove('pulse');
+        lampSwitchGlow.className = 'hidden';
+    })
+
+    // textPrompt.addEventListener('animationend', function(){
+    //     lampSwitchGlow.className = 'pulse';
+    // })
 
     lampSwitch.addEventListener('click', function() {
         if (mode === 'dark') {
