@@ -1,0 +1,49 @@
+h1 {
+    position: absolute;
+    min-width: 100vw;
+    min-height: 100vh;
+
+
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    /* background-color: black; */
+    color: black;
+    font-family: 'Anton', sans-serif;
+    font-size: 150px;
+    padding-top: 50vh;
+    text-align: center;
+    text-transform: uppercase;
+
+    mix-blend-mode: darken;
+
+    transition: background-color 0.25s;
+}
+
+#hoverSpace:hover {
+    cursor: pointer;
+}
+
+#hoverSpace {
+    /* background-color: antiquewhite; */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 70vw;
+    height: 160px;
+    z-index: 2;
+}
+
+#myVideo {
+    position: fixed;
+    right: 0;
+    top: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    z-index: 0;
+}
+
+

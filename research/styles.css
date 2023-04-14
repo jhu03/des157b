@@ -1,0 +1,36 @@
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    line-height: 1.6em;
+    color: #333;
+}
+
+img {
+    display: block;
+    width: 30vw;
+    height: auto;
+}
+
+#container {
+    display: flex;
+    gap: 10px;
+    margin: 90px;
+
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+h1 {
+    color: rgb(235, 153, 0);
+}
+
+#text {
+    width: 40vw;}
+
+p {
+    font-weight: 300;
+}
+
+span {
+    background-color: #FFD596;
+}
+
