@@ -1,24 +1,229 @@
-h1 {
-    position: absolute;
+body {
+    overflow: hidden;
+    background-color: #BFB19A;
+}
+
+.hide {
+    opacity: 0;
+}
+
+/* ------ video styling ------ */
+
+#talkingVideo {
+    position: fixed;
+    right: 0;
+    top: 0;
     min-width: 100vw;
     min-height: 100vh;
+    z-index: 0;
+}
 
-
+#chaosVideo {
+    position: fixed;
+    width: 90vw;
     left: 50%;
     top: 50%;
+    transform: translate(-50%, -50%);   
+}
+
+/* ------ text styles ------ */
+
+h1 {
+    position: absolute;
+    width: 100vw; 
+    height: 100vh;
+
+    left: 50%;
+    top: 37%;
     transform: translate(-50%, -50%);
 
-    /* background-color: black; */
-    color: black;
+    color: rgb(212, 212, 212);
     font-family: 'Anton', sans-serif;
-    font-size: 150px;
+    font-size: 13.5em;
+
     padding-top: 50vh;
     text-align: center;
     text-transform: uppercase;
 
-    mix-blend-mode: darken;
+    mix-blend-mode: overlay;
 
     transition: background-color 0.25s;
+    opacity: 0;
+    z-index: 1;
+    overflow: hidden;
+}
+
+
+#topText, #bottomText {
+    display: flex;
+    flex-direction: row;
+    gap: 250px;
+    justify-content: space-around;
+
+    color: #35418d;
+    font-size: 0.7em;
+    font-weight: 100;
+    font-style: oblique;
+}
+
+#topText {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-top: 10px;
+    width: 100vw;
+}
+
+#bottomText {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin-bottom: 10px;
+    width: 100vw;
+}
+
+#text {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    transform: translate(-50%);
+
+    z-index: 3;
+}
+
+p {
+    font-size: 2em;
+    margin: 15px 0;
+    opacity: 0;
+    z-index: 3;
+}
+
+/* ------ sources overlay styling ------ */
+
+#sourcesLink {
+    position: absolute;
+    left: 50%;
+    bottom: 2%;
+
+    font-size: 1.1em;
+    text-decoration: underline;
+}
+
+.fa-xmark {
+    position: absolute;
+    right: 8%;
+    top: 10%;
+}
+
+#sourcesLink:hover, .fa-xmark:hover {
+    cursor: pointer;
+}
+
+#load {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    background-color: rgb(12, 12, 12);
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    transition: all 1.5s;
+}
+
+#stars {
+    display: flex;
+    gap: 30px;
+}
+
+.bounce {
+    animation-name: bounce;
+    animation-delay: 0.25s;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+}
+
+#load p {
+    color: #d0cac1;
+    font-size: 1.3em;
+}
+
+#overlay {
+    background-color: rgb(47, 47, 47, 0.8);
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: none;
+
+    transition: all 1.5s;
+}
+
+#sources {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 35vw;
+    height: 50vh;
+
+    background-color: #BFB19A;
+    color: #333;
+
+    border-radius: 8px;
+    padding: 30px 50px;
+
+    z-index: 4;
+    transition: all 1.5s;
+}
+
+h2 {
+    font-size: 1.6em;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+#sources p {
+    font-size: 1.1em;
+    opacity: 1;
+}
+
+a {
+    color: #404fb0;
+    font-weight: 600;
+    font-style: oblique;
+    text-decoration: none;
+}
+
+/* ------ animation styles ------ */
+
+.fadeIn {
+    animation-name: fadeIn;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
 }
 
 #hoverSpace:hover {
@@ -29,21 +234,16 @@ h1 {
     /* background-color: antiquewhite; */
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 48%;
     transform: translate(-50%, -50%);
 
-    width: 70vw;
-    height: 160px;
+    width: 80vw;
+    height: 180px;
     z-index: 2;
+    display: none;
 }
 
-#myVideo {
-    position: fixed;
-    right: 0;
-    top: 0;
-    min-width: 100vw;
-    min-height: 100vh;
-    z-index: 0;
+@keyframes bounce {
+    0%, 100% {transform: translateY(0px);}
+    50% {transform: translateY(10px);}
 }
-
-

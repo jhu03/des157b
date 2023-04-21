@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,15 +19,67 @@
     <title>Ministudio 1: Blockbuster Video</title>
 </head>
 <body>
-    
-    <video id="myVideo" poster="images/videoThumbnail.png" muted autoplay loop playsinline>
-        <source src="media/trees.webm" type="video/webm">
-        <source src="media/trees.mp4" type="video/mp4">
-    </video>
 
+    <section id="load">
+        <div id="stars">
+            <img id="star1" class="bounce" src="images/star1.png" width="55" height="49" alt="star">
+            <img id="star2" src="images/star2.png" width="55" height="49" alt="star">
+            <img id="star3" src="images/star3.png" width="55" height="49" alt="star">
+        </div>
+
+
+        <p>Dispersing the stardust...</p>
+    </section>
+
+    <div id="topText">
+        <p id="line1">This palace was crystal, </p>
+        <p id="line2">but the world was a cruel joke</p>    
+    </div>
+
+    <div id="bottomText" class="hide">
+        <p class="fadeIn">What is there between us, </p>
+        <p class="fadeIn">if not a little</p>    
+    </div>
+
+    <div id="text">
+        <p id="line3">What is there between us,</p> 
+        <p id="line4">if not a little</p>
+    </div>
+   
     <h1>Annihilation</h1>
     <div id="hoverSpace"></div>
+    <p id="sourcesLink">Sources</p>
     
+    <video id="talkingVideo" poster="images/videoThumbnail.png" muted autoplay loop playsinline>
+        <source src="media/talking.webm" type="video/webm">
+        <source src="media/talking.mp4" type="video/mp4">
+    </video>
+
+    <video id="chaosVideo" class="hide" poster="images/videoThumbnail.png" muted autoplay loop playsinline>
+        <source src="media/chaosMontage.webm" type="video/webm">
+        <source src="media/chaosMontage.mp4" type="video/mp4">
+    </video>
+
+    <section id="overlay">
+        <div id="sources">
+            <h2>Lyric Source</h2>
+            <p><a href="https://youtu.be/2NFU3VEnjg8">"Baby Annihilation"</a> by Fall Out Boy</p>
+
+            <h2>Video Sources</h2>
+            <p><a href="https://www.pexels.com/video/bottle-shattering-slow-motion-854406/">Bottle Shatter Video</a> by Pixabay</p> 
+
+            <p><a href="https://www.pexels.com/video/dropping-red-paint-on-water-7565889/">Red Paint Video</a> by MART  PRODUCTION</p> 
+
+            <p><a href="https://www.pexels.com/video/a-vase-falling-into-pieces-on-a-floor-6685560">Broken Vase Video</a> by cottonbro studio</p>
+
+            <p><a href="https://www.pexels.com/video/person-destroying-sculpture-6719636/">Sculpture Destruction Video</a> by Tima Miroshnichenko</p>
+
+            <p><a href="https://www.pexels.com/video/a-burst-of-white-powder-thrown-in-the-air-3045163/">Powder Video</a> by Dan Cristian Pădureț from Pexels
+            </p>
+
+            <i class="fa-solid fa-xmark fa-xl"></i>
+        </div>
+    </section>
     
 </body>
 </html>
