@@ -1,0 +1,58 @@
+body {
+    display: flex;
+    justify-content: space-around;
+    width: 100vw;
+    height: 100vh;
+
+    font-family: 'VT323', monospace;
+}
+
+#months {
+    /* width: 60vw; */
+
+    align-self: center;
+}
+
+#monthSelect {
+    background-color: antiquewhite;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+
+    align-items: center;
+    justify-items: center;
+
+    width: 45vw;
+}
+
+#mar {
+    grid-column: 1 / span 1.5;
+}
+
+#apr {
+    grid-column: 2 / span 1.5;
+}
+
+#printer {
+    background-color: #333;
+    position: absolute;
+    top: 0;
+
+    width: 25vw;
+    height: 10vh;
+}
+
+#receipt {
+    background-color: rgb(246, 243, 239);
+    padding: 30px 60px;
+
+    width: 20vw;
+}
+
+#receipt h2 {
+    border-bottom: 1px dashed #333;
+    padding-bottom: 30px;
+
+    margin: auto;
+    width: 10vw;
+}
