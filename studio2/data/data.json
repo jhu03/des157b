@@ -1,0 +1,72 @@
+{
+    "sept" : {
+        "month" : "September 2022",
+        "total" : 2,
+        "cerealType" : ["Honey Bunches of Oats with Almomds"],
+        "typeNum" : [2],
+        "bowl" : "images/honey.png",
+        "brandLogo" : "images/oatsLogo.png",
+        "imageWidth" : "72",
+        "imageHeight" : "72",
+        "imageAlt" : "honey bunches of oats logo"
+    },
+    "oct" : {
+        "month" : "October 2022",
+        "total" : 0,
+        "bowl" : "images/empty.png"
+    },
+    "nov" : {
+        "month" : "November 2022",
+        "total" : 3,
+        "cerealType" : ["Honey Nut Cheerios"],
+        "typeNum" : [3],
+        "bowl" : "images/cheerios.png",
+        "brandLogo" : "images/cheeriosLogo.png",
+        "imageWidth" : "110",
+        "imageHeight" : "30",
+        "imageAlt" : "cheerios logo"
+    },
+    "dec" : {
+        "month" : "December 2022",
+        "total" : 0,
+        "bowl" : "images/empty.png"
+    },
+    "jan" : {
+        "month" : "January 2023",
+        "total" : 0,
+        "bowl" : "images/empty.png"
+    },
+    "feb" : {
+        "month" : "February 2023",
+        "total" : 2,
+        "cerealType" : ["Honey Nut Cheerios"],
+        "typeNum" : [2],
+        "bowl" : "images/cheerios.png",
+        "brandLogo" : "images/cheeriosLogo.png",
+        "imageWidth" : "110",
+        "imageHeight" : "30",
+        "imageAlt" : "cheerios logo"
+    },
+    "mar" : {
+        "month" : "March 2023",
+        "total" : 3,
+        "cerealType" : ["Special K with Red Berries", "Honey Nut Cheerios"],
+        "typeNum" : [2, 1],
+        "bowl" : "images/specialk.png",
+        "brandLogo" : "images/specialkLogo.png",
+        "imageWidth" : "66",
+        "imageHeight" : "72",
+        "imageAlt" : "special k logo"
+    },
+    "apr" : {
+        "month" : "April 2023",
+        "total" : 4,
+        "cerealType" : ["Honey Nut Cheerios", "Reese's Puffs", "Honey Bunches of Oats with Almomds"],
+        "typeNum" : [2, 1, 1],
+        "bowl" : "images/reeses.png",
+        "brandLogo" : "images/reesesLogo.png",
+        "imageWidth" : "96",
+        "imageHeight" : "63",
+        "imageAlt" : "reeses puffs logo"
+    }
+}

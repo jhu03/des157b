@@ -1,58 +1,271 @@
+/* ------ general styling ------ */
 body {
     display: flex;
     justify-content: space-around;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
+
+    /* background-color: #FDF5E2; */
 
     font-family: 'VT323', monospace;
+    color: #333;
+    /* margin: 0 30px; */
 }
 
-#months {
-    /* width: 60vw; */
+img {
+    display: block;
+    margin: auto;
+}
 
+/* ------ month selection styling ------ */
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+/* #scanner {
+    transform: scale(1.4);
+    top: -15%;
+} */
+
+#months {
     align-self: center;
+    margin: auto;
+    font-size: 1.1em;
+}
+
+#months p {
+    font-size: 1.2em;
+    margin: 0 0 40px ;
 }
 
 #monthSelect {
-    background-color: antiquewhite;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr; */
+    background-color: rgb(255, 237, 214);
+    border-radius: 4px;
+    padding: 15px;
+
+    position: relative;
+    width: 50vw;
+    height: 60vh;
+}
+
+/* nav {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} */
+
+/* nav {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+} */
+
+nav ul{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 15px;
 
     align-items: center;
     justify-items: center;
-
-    width: 45vw;
+    padding-left: 0;
 }
 
-#mar {
-    grid-column: 1 / span 1.5;
+nav ul li {
+    list-style-type: none;
 }
 
-#apr {
-    grid-column: 2 / span 1.5;
+
+button {
+    /* background-color: #ebebeb; */
+    background-color: transparent;
+    /* border: 2px outset #333; */
+    border: none;
+
+    font-family: 'Lilita One', cursive;
+    font-size: 1.2em;
+    color: #fafafa;
+    text-shadow: 0px 4px 0px #6056A4;
+    text-align: center;
+
+    width: 10vw;
+    height: 11vh;
+    /* padding:  28px 47px; */
+
+    background-image: url(images/boxtop.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    /* background-position: -10px; */
 }
 
-#printer {
-    background-color: #333;
+
+button:hover {
+    /* background-color: #d1d1d1;
+    border: 2px inset #333; */
+    cursor: pointer;
+    box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+#cal {
+    margin: 0;
+}
+
+#calendar {
+    position: relative;
+    width: fit-content;
+
+    margin: 40px 20px auto;
+}
+
+#calendar h4 {
     position: absolute;
-    top: 0;
+    top: 17%;
+    left: 50%;
+    transform: translateX(-50%);
 
-    width: 25vw;
-    height: 10vh;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.9em;
+    text-align: center;
+    margin: 0;
+    width: 150px;
+}
+
+#itemDescrip {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    font-size: 1.1em;
+    line-height: 1em;
+    text-align: center;
+    margin: 0;
+}
+
+#cerealBrand {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%);
+
+    width: 110px;
+    height: auto;
+}
+
+#bowl {
+    position: absolute;
+    bottom: 0%;
+    left: 27%;
+    /* transform: translateX(-50%); */
+    margin-top: 60px;
+}
+
+/* ------ receipt ------ */
+
+#receiptSec {
+    margin: 60px auto auto;
+    width: 30vw;
 }
 
 #receipt {
-    background-color: rgb(246, 243, 239);
-    padding: 30px 60px;
+    /* background-color: rgb(246, 243, 239); */
+    background-image: url(images/receipt.png);
+    background-repeat: no-repeat;
+    background-size: cover;
 
+    padding: 30px 60px;
     width: 20vw;
+    /* box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
 
 #receipt h2 {
-    border-bottom: 1px dashed #333;
-    padding-bottom: 30px;
+    /* border-bottom: 1px dashed #333;
+    padding-bottom: 30px; */
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 2em;
+    font-weight: 600;
+}
 
+#receiptHead {
     margin: auto;
-    width: 10vw;
+    text-align: center;
+    line-height: 1em;
+}
+
+#receiptHead p, #total p{
+    font-size: 1em;
+    margin: 8px;
+}
+
+#date, #total {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    border-top: 1px dashed #333;
+    border-bottom: 1px dashed #333;
+    margin: 30px 0;
+}
+
+h3 {
+    font-size: 1.3em;
+    margin: 10px 0;
+    text-align: center;
+}
+
+#cerealList{
+    display: grid;
+    grid-template-columns: 0.5fr 2fr;
+    grid-template-rows: auto auto auto;
+    /* flex-direction: row;
+    gap: 30px; */
+    margin: 0 10px;
+
+    font-size: 1.2em;
+}
+
+.num0 {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.num1 {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.num2 {
+    grid-column: 1;
+    grid-row: 3
+}
+
+.type0 {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.type1 {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.type2 {
+    grid-column: 2;
+    grid-row: 3
+}
+
+.typeNone {
+    grid-column: 1 / span 2;
+}
+
+#cerealList p {
+    margin: 4px 0;
 }

@@ -9,36 +9,83 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Lilita+One" rel="stylesheet">
 
     <link href="styles.css" rel="stylesheet">
+    <script src="script.js" defer></script>
+
+    <link>
 
     <title>Check Yourself</title>
 </head>
 <body>
+
     <section id="months">
+
+
         <h1>Joanna's Cereal Counter</h1>
+        <p>i buy a lot of cereal. let’s see how bad this obsession is</p>
 
         <div id="monthSelect">
-            <p>Sept</p>
-            <p>Oct</p>
-            <p>Nov</p>
-            <p>Dec</p>
-            <p>Jan</p>
-            <p>Feb</p>
-            <p id="mar">Mar</p>
-            <p id="apr">Apr</p>
+
+            <h3>Month Selection</h3>
+            <nav>
+                <!-- <h3>2022</h3> -->
+                <ul>
+                </ul>
+            </nav>
+
+            <div id="calendar">
+                <img id="cal" src="images/cal.png" width="175" height="175"> 
+
+                <h4></h4>
+                <p id="itemDescrip"></p>
+                <div id="cerealBrand"></div>
+            </div>
+
         </div>
+            
+
+
+        <img id="bowl" src="images/empty.png" width="410" height="225">
     </section>
 
 
-    <section>
-        <div id="printer"></div>
+    <section id="receiptSec">
+        <!-- <div id="printer">
+        </div> -->
         <div id="receipt">
-            <h2>cereal</h2>
-            <p>1 Cheerios</p>
-            <p>2 Cheerios</p>
+            <div id="receiptHead">
+                <h2>SAFEWAY</h2>
+                <p>Store 1561 Dir Dakota Planinz</p>
+                <p>Main: (530)792-8500</p>
+                <p>2121 Cowell Blvd.</p>
+                <p>DAVIS CA 95617</p>
+
+                <div id="date">
+                    <p>Purchased on</p>
+                    <p id="dateUpdate"></p>
+                </div> 
+            </div>
+
+            <h3>GROCERY</h3> 
+            <div id="cerealList">
+                <div id="cerealNum"></div>
+                <div id="cerealType"></div>
+            </div>  
+
+
+            <div id="total">
+                <p>Total Number of Items</p>
+                <p id="totalUpdate"></p>
+            </div>
+
+            <img src="images/barcode.png" width="154" height="37" alt="receipt barcode">
+
+            <p>Thank you for shopping at The Cereal Bar. Happy munching!</p>
         </div>
+
+
 
     </section>
     
