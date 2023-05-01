@@ -6,11 +6,8 @@ body {
     height: 100vh;
     overflow: hidden;
 
-    /* background-color: #FDF5E2; */
-
     font-family: 'VT323', monospace;
     color: #333;
-    /* margin: 0 30px; */
 }
 
 img {
@@ -25,11 +22,7 @@ h1 {
     margin-bottom: 10px;
 }
 
-/* #scanner {
-    transform: scale(1.4);
-    top: -15%;
-} */
-
+/*  styling nav/buttons */
 #months {
     align-self: center;
     margin: auto;
@@ -42,10 +35,7 @@ h1 {
 }
 
 #monthSelect {
-    /* display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr; */
-    background-color: rgb(255, 237, 214);
+    background-color: rgb(255, 243, 227);
     border-radius: 4px;
     padding: 15px;
 
@@ -53,19 +43,6 @@ h1 {
     width: 50vw;
     height: 60vh;
 }
-
-/* nav {
-    position: absolute;
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-} */
-
-/* nav {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-} */
 
 nav ul{
     display: grid;
@@ -82,11 +59,10 @@ nav ul li {
     list-style-type: none;
 }
 
+/*  styling mini calendar */
 
 button {
-    /* background-color: #ebebeb; */
     background-color: transparent;
-    /* border: 2px outset #333; */
     border: none;
 
     font-family: 'Lilita One', cursive;
@@ -97,18 +73,13 @@ button {
 
     width: 10vw;
     height: 11vh;
-    /* padding:  28px 47px; */
 
     background-image: url(images/boxtop.png);
     background-repeat: no-repeat;
     background-size: contain;
-    /* background-position: -10px; */
 }
 
-
 button:hover {
-    /* background-color: #d1d1d1;
-    border: 2px inset #333; */
     cursor: pointer;
     box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.19);
 }
@@ -163,7 +134,6 @@ button:hover {
     position: absolute;
     bottom: 0%;
     left: 27%;
-    /* transform: translateX(-50%); */
     margin-top: 60px;
 }
 
@@ -175,19 +145,15 @@ button:hover {
 }
 
 #receipt {
-    /* background-color: rgb(246, 243, 239); */
     background-image: url(images/receipt.png);
     background-repeat: no-repeat;
     background-size: cover;
 
     padding: 30px 60px;
     width: 20vw;
-    /* box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
 
 #receipt h2 {
-    /* border-bottom: 1px dashed #333;
-    padding-bottom: 30px; */
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 2em;
     font-weight: 600;
@@ -225,12 +191,12 @@ h3 {
     display: grid;
     grid-template-columns: 0.5fr 2fr;
     grid-template-rows: auto auto auto;
-    /* flex-direction: row;
-    gap: 30px; */
     margin: 0 10px;
 
     font-size: 1.2em;
 }
+
+/*  styling receipt item layout with grid */
 
 .num0 {
     grid-column: 1;
