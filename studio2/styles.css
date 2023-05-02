@@ -19,7 +19,18 @@ img {
 
 h1 {
     font-size: 3em;
-    margin-bottom: 10px;
+    margin: 10px 0;
+}
+
+#header p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    color: #989898;
+    line-height: 1.5em;
+}
+
+strong {
+    color: orange;
 }
 
 /*  styling nav/buttons */
@@ -31,7 +42,7 @@ h1 {
 
 #months p {
     font-size: 1.2em;
-    margin: 0 0 40px ;
+    margin: 0 0 30px ;
 }
 
 #monthSelect {
@@ -42,6 +53,12 @@ h1 {
     position: relative;
     width: 50vw;
     height: 60vh;
+}
+
+#monthSelect h2 {
+    font-size: 1.6em;
+    margin: 15px 0 20px;
+    text-align: center;
 }
 
 nav ul{
@@ -92,7 +109,7 @@ button:hover {
     position: relative;
     width: fit-content;
 
-    margin: 40px 20px auto;
+    margin: 30px 20px auto;
 }
 
 #calendar h4 {
