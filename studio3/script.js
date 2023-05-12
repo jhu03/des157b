@@ -2,7 +2,6 @@ kaboom({
 
 });
 
-loadSprite("bean", "images/bro.png")
 loadSprite("bean", "images/bro.png", {
     sliceX: 8,
 	// Define animations
@@ -28,6 +27,7 @@ const bean = add([
 bean.play("run");
 
 onKeyPress("space", () => {
+    // bean.jump();
     if (bean.isGrounded()) {
         bean.jump();
     }
