@@ -1,6 +1,6 @@
 body {
     font-family: Georgia, 'Times New Roman', Times, serif;
-    line-height: 1.6em;
+    line-height: 1.7em;
     color: #333;
 }
 
@@ -19,8 +19,12 @@ img {
     justify-content: space-evenly;
 }
 
-h1 {
+h1, h2 {
     color: rgb(235, 153, 0);
+}
+
+h2 {
+    margin-top: 50px;
 }
 
 #text {
@@ -28,15 +32,17 @@ h1 {
 
 p {
     font-weight: 300;
+    margin-bottom: 32px;
 }
 
 span {
-    background-color: #FFD596;
+    background-color: #ffdaa3;
+    padding: 4px;
 }
 
 /* ------ bibliography styling ------ */
 
-#bibliography {
+.centerBody {
     margin: 90px auto;
     width: 50vw;
 }
@@ -63,3 +69,10 @@ a:hover {
     color: #24309a;
 }
 
+
+/* ------ bibliography styling ------ */
+
+#descrip {
+    color: #7a7a7a;
+    font-style: italic;
+}
