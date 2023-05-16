@@ -3,33 +3,9 @@ kaboom({
     height: 600,
     // canvas: document.querySelector('#myCanvas'),
     background: [ 255, 255, 255, ]
-});
-
-layers(['game', 'ui'], 'game');
-
-const level = addLevel ([
-    "@  ",
-	"=======",
-],{
-    width: 32,
-    height: 32,
-
-    "=": () => [
-        sprite("ground"),
-        area(),
-        solid(),
-    ],
-    "@": () => [
-		sprite("bean"),
-		area(),
-		body(),
-		origin("bot"),
-		"bean",
-    ]
-
-
 })
 
+layers(['game', 'ui'], 'game');
 
 loadSprite('bg', "images/Banner-1.png")
 loadSprite('ground', 'images/ground.png')
@@ -55,17 +31,45 @@ loadSprite("bean", "images/bro.png", {
 	}
 })
 
+const levels = [
+    "@  ",
+	"=======",
+]
+
+
+
 
 
 scene("main", () => {
 
-    const bean = add([
-        sprite("bean"),
-        pos(80, 40),
-        area(),
-        body(),
-        z(1)
-    ])
+    // const bean = add([
+    //     sprite("bean"),
+    //     pos(80, 40),
+    //     area(),
+    //     body(),
+    //     z(1)
+    // ])
+
+    const level = addLevel(levels[0], {
+        width: 32,
+        height: 32,
+        pos: vec2(100, 200),
+    
+        "=": () => [
+            sprite("ground"),
+            area(),
+            solid(),
+        ],
+        "@": () => [
+            sprite("bean"),
+            area(),
+            body(),
+            origin("bot"),
+            "bean",
+        ]
+    })
+
+    const bean = get("bean")[0]
 
     const bg = add ([
         layer('ui'),
@@ -131,7 +135,7 @@ scene('next', () => {
 })
 
 
-// go('main')
+go('main')
 
 
 

@@ -16,17 +16,12 @@
     <!-- link to kaboom library -->
     <script src="https://unpkg.com/kaboom/dist/kaboom.js"></script>
 
-     <!-- link to p5play library -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1/lib/p5.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/p5@1/lib/addons/p5.sound.min.js"></script>
-
-    <script src="https://p5play.org/v3/planck.min.js"></script>
-    <script src="https://p5play.org/v3/p5play.js"></script> -->
-
-
 
     <!-- link to js -->
-    <script src="script.js" defer></script>
+    <!-- <script src="script.js" defer></script> -->
+    <script src="kaboom.js" defer></script>
+    <script src="granim.min.js"></script>
+    <script src="https://pixijs.download/release/pixi.js"></script>
 
 
 
@@ -34,6 +29,25 @@
 </head>
 <body>
 
-    <div id='myCanvas'></div>
+    <h1>spud's rock</h1>
+
+    <canvas id="canvas"></canvas>
+
+    <div id="mockCanvas" class="hide">
+        <div class="rock">
+            <canvas id="rock"></canvas>
+            <span href="index.html" class="logo-mask"></span>
+        </div>
+    </div>
+
+    <footer>
+        <a href="https://kaboomjs.com/#kaboom">
+        Kaboom JS Library</a>
+
+        <a href="https://sarcadass.github.io/granim.js/index.html">Granim.js</a>
+    </footer>
+
+
+
 </body>
 </html>

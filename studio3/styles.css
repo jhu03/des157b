@@ -1,11 +1,88 @@
 body {
     padding:0; 
     margin:0;
+    background-color: rgb(221, 221, 221);
+
+    font-family: 'VT323', monospace;
+    font-size: 1.3em;
 }
 
-/* #myCanvas {
-    width: 50vw;
-    height: 50vh;
-    margin: auto;
-    background-color: rgb(39, 101, 112);
-} */
+h1 {
+    position: fixed;
+    top: 0;
+
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+
+    font-size: 2em;
+}
+
+.hide {
+    display: none;
+}
+
+#canvas {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#mockCanvas {
+    width: 1000px;
+    height: 600px;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.rock {
+    position: absolute;
+    width: 32px;
+    height: 24px;
+
+    bottom: 33.5%;
+    right: 12.8%;
+    z-index: 5;
+}
+
+.rock canvas,
+.rock .logo-mask {
+    display: block;
+    width: 32px;
+    height: 24px;
+}
+
+.logo-mask {
+    position: absolute;
+    bottom: 0%;
+    right: 0%;
+    background-size: 32px;
+    background-image: url("images/rock.png");
+    /* text-indent: -9999px; */
+}
+
+footer {
+    display: flex;
+    justify-content: space-evenly;
+    
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+
+    padding: 15px;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+a:hover {
+    color: #093aff;
+}
