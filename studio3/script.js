@@ -3,6 +3,12 @@
 	'use strict';
 
 
+addEventListener("load", (event) => {
+
+	document.querySelector('#canvas').focus();
+});
+
+
 // Start game
 kaboom({
     width: 1000,
