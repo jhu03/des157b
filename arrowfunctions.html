@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow Functions</title>
+    <style>
+        html {
+            background-color: #efefef;
+        }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #333;
+            line-height: 1.4em;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        div {
+            margin: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Arrow Function Practice</h1>
+
+    <p>This function adds a new paragraph saying "New click" to an empty div on the page. I came up with this function when I was trying to figure out how to log button interactions. I looked up how to incoprate tags into code blocks without it being interpreted by the HTML, and I found out that I could use symbol codes to substitute tag markings such as '&lt;'.</p>
+
+    <p>Test out the function here</p>
+    <button>Click Me</button>
+    <div></div>
+
+    <h2>Named Function</h2>
+    <code>
+        <pre>
+            function clicked(){
+                document.querySelector('div').innerHTML += '&lt;p>New click&lt;/p>';
+            }
+        </pre>
+    </code>
+
+    <h2>Function Expression</h2>
+    <code>
+        <pre>
+            const clicked = function(){
+                document.querySelector('div').innerHTML += '&lt;p>New click&lt;/p>';
+            }
+        </pre>
+    </code>
+
+    <h2>Arrow Function</h2>
+    <code>
+        <pre>
+            const clicked = () => document.querySelector('div').innerHTML += '&lt;p>New click&lt;/p>';
+        </pre>
+    </code>
+
+    <script>
+        const clicked = () => document.querySelector('div').innerHTML += '<p>New click</p>';
+        document.querySelector('button').addEventListener('click', clicked);
+    </script>
+
+    <footer> Joanna </footer>
+    
+</body>
+</html>
