@@ -1,0 +1,34 @@
+body {
+    padding:0; 
+    margin:0;
+    overflow: hidden;
+    background-color: rgb(221, 221, 221);
+
+    font-family: 'VT323', monospace;
+    font-size: 1.3em;
+}
+
+header {
+    width: 100vw;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 5px;
+}
+
+p {
+    margin: 0px 0px 10px;
+}
+
+.hide {
+    opacity: 0;
+}
+
+#canvas {
+    position: relative;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+}
