@@ -19,6 +19,9 @@ kaboom({
 const mockCanvas = document.querySelector('#mockCanvas');
 
 // Load assets
+loadFont("apl386", "fonts/apl386.ttf", { outline: 4, filter: "linear" })
+
+
 loadSprite('bg','images/bg.png')
 loadSprite('bg1','images/bg1.png')
 loadSprite('ground', 'images/tile.png')
@@ -30,7 +33,7 @@ loadSprite('patwin', 'images/patwin.png', {
     sliceX: 2,
 
     anims: {
-        idle2: {
+        "idle2": {
             from: 0,
             to: 1,
             speed: 1,
@@ -38,17 +41,17 @@ loadSprite('patwin', 'images/patwin.png', {
         }
     }
 })
-loadSprite("bean", "images/bro.png", {
+loadSprite("player", "images/bro.png", {
     sliceX: 8,
 	// Define animations
 	anims: {
-        idle: {
+        "idle": {
             from: 0,
             to: 2,
             speed: 5,
 			loop: true,
         },
-		run: {
+		"run": {
 			// Starts from frame 0, ends at frame 3
 			from: 3,
 			to: 7,
@@ -56,7 +59,7 @@ loadSprite("bean", "images/bro.png", {
 			speed: 5,
 			loop: true,
 		}, 
-        jump: 2
+        "jump": 2
 	}
 })
 
@@ -66,22 +69,22 @@ const SPEED = 240
 // Design levels
 const LEVELS = [
 	[	
-			"                  ",
-			"        ,         ",
-			"@     *         > ",
-			"==================",
+		"                   ",
+		"         ,         ",
+		" @    *         > ",
+		"===================",
 	],
 	[
-			"                 ",
-			"        .        ",
-			"< @              ",
-			"==================",
+		"                  ",
+		"         .        ",
+		" < @             ",
+		"===================",
 	],
-[	
-			"                  ",
-			"         ,        ",
-			"       *      @ > ",
-			"==================",
+	[	
+		"                   ",
+		"          ,        ",
+		"       *      @ > ",
+		"===================",
 	]
 
 ]
@@ -101,80 +104,83 @@ scene("game", ({ levelIdx, score }) => {
 		tileWidth: 54,
 		tileHeight: 48,
 		pos: vec2(0, 410),
-		".": () => [
-			sprite("bg"),
-			anchor("bot"),
-            z(-1),
-			pos(15, 100),
-			"bg",
-		],
-		",": () => [
-			sprite("bg1"),
-			anchor("bot"),
-            z(-1),
-			pos(15, 150),
-			"bg1",
-		],
-		"@": () => [
-			sprite("bean"),
-			area(),
-			body(),
-			anchor("bot"),
-            z(1),
-			"player",
-		],
-		"=": () => [
-			sprite("ground"),
-			area(),
-			solid(),
-			anchor("bot"),
-			z(2)
-		],
-		"-": () => [
-			sprite("ground2"),
-			area(),
-			solid(),
-			anchor("bot"),
-		],
-        "*": () => [
-            sprite('patwin'),
-            area(),
-            anchor("bot"),
-            'patwin',
-        ],
-        ">": () =>[
-            sprite('next'),
-            area(),
-			body(),
-			anchor("bot"),
-            "next"
-        ],
-        "<": () =>[
-            sprite('back'),
-            area(),
-			body(),
-			anchor("bot"),
-            "back"
-        ],
-        "&": () =>[
-            sprite('rock'),
-            area(),
-			body(),
-			anchor("bot"),
-            "rock"
-        ],
-        // "|": () =>[
-		// 	rect(1, 40) ,
-		// 	color(200,200,200),
-        //     area(),
-		// 	body(),
-		// 	anchor("bot")
-        // ]
+		tiles: {
+			".": () => [
+				sprite("bg"),
+				anchor("bot"),
+				z(-1),
+				pos(15, 150),
+				"bg",
+			],
+			",": () => [
+				sprite("bg1"),
+				anchor("bot"),
+				z(-1),
+				pos(15, 150),
+				"bg1",
+			],
+			"@": () => [
+				sprite("player"),
+				area(),
+				body(),
+				anchor("bot"),
+				z(3),
+				"player",
+			],
+			"=": () => [
+				sprite("ground"),
+				area(),
+				body({ isStatic: true }),
+				anchor("bot"),
+				z(2)
+			],
+			"-": () => [
+				sprite("ground2"),
+				area(),
+				body({ isStatic: true }),
+				anchor("bot"),
+			],
+			"*": () => [
+				sprite('patwin'),
+				area(),
+				anchor("bot"),
+				'patwin',
+			],
+			">": () =>[
+				sprite('next'),
+				area(),
+				body({ isStatic: true }),
+				anchor("bot"),
+				"next"
+			],
+			"<": () =>[
+				sprite('back'),
+				area(),
+				body({ isStatic: true }),
+				anchor("bot"),
+				"back"
+			],
+			"&": () =>[
+				sprite('rock'),
+				area(),
+				body({ isStatic: true }),
+				anchor("bot"),
+				"rock"
+			],
+			// "|": () =>[
+			// 	rect(1, 40) ,
+			// 	color(200,200,200),
+			//     area(),
+			// 	body({ isStatic: true }),
+			// 	anchor("bot")
+			// ]
+		}
 	})
 
 	// Get the player object from tag
-	const player = get("player")[0]
-    const spud = get("patwin")[0]
+	const player = level.get("player")[0]
+	console.log(player)
+    const patwin = level.get("patwin")[0]
     player.play('idle')
 
 
@@ -188,29 +194,30 @@ scene("game", ({ levelIdx, score }) => {
     })
 
 	onKeyPress("space", () => {
+		console.log('jumped')
 		if (player.isGrounded()) {
+			player.jump(600)
             player.play('jump')
-			player.jump()
 		}
 	})
 
 	onKeyDown("left", () => {
-        player.flipX(true)
+        player.flipX = true
 		player.move(-SPEED, 0)
         
 	})
 
 	onKeyDown("right", () => {
-        player.flipX(false)
+        player.flipX = false
 		player.move(SPEED, 0)
 	})
 
 
-    // player talks to spud
-    player.onCollide("spud", () => {
+    // player talks to patwin
+    player.onCollide("patwin", () => {
 
         add([
-            pos(width()/2, height()/2),
+            pos(center()),
             text("[hello! i lost my pet rock. can you help me find it?].full", {
                 size: 24,
                 width: 300, // it'll wrap to next line when width exceeds this value
@@ -244,7 +251,7 @@ scene("game", ({ levelIdx, score }) => {
 	})
 
 	if (levelIdx == 0 || levelIdx == 2) {
-		spud.play('idle2');
+		patwin.play('idle2')
 	}
 
 })
