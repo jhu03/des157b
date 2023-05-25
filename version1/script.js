@@ -26,7 +26,6 @@ loadSprite('ground2', 'images/ground2.png')
 loadSprite('next', 'images/next.png')
 loadSprite('back', 'images/back.png')
 loadSprite('rock', 'images/rock.png')
-loadSprite('cat', 'images/cat.png')
 loadSprite('patwin', 'images/patwin.png', {
     sliceX: 2,
 
@@ -67,27 +66,26 @@ const SPEED = 240
 // Design levels
 const LEVELS = [
 	[	
-			"|                  ",
-			"|        ,         ",
-			"|@     *         > ",
-			"===================",
+			"                  ",
+			"        ,         ",
+			"@     *         > ",
+			"==================",
 	],
 	[
-			"|                 |",
-			"|        .        |",
-			"|< @              |",
-			"===================",
+			"                 ",
+			"        .        ",
+			"< @              ",
+			"==================",
 	],
 [	
-			"|                  |",
-			"|         ,        |",
-			"|       *      @ > |",
-			"===================",
+			"                  ",
+			"         ,        ",
+			"       *      @ > ",
+			"==================",
 	]
 
-
-
 ]
+
 
 
 
@@ -96,23 +94,23 @@ const LEVELS = [
 scene("game", ({ levelIdx, score }) => {
 
 	// jump characteristics
-	gravity(2400)
+	setGravity(2400)
 
 	// Use the level passed, or first level
 	const level = addLevel(LEVELS[levelIdx], {
-		width: 54,
-		height: 48,
+		tileWidth: 54,
+		tileHeight: 48,
 		pos: vec2(0, 410),
 		".": () => [
 			sprite("bg"),
-			origin("bot"),
+			anchor("bot"),
             z(-1),
 			pos(15, 100),
 			"bg",
 		],
 		",": () => [
 			sprite("bg1"),
-			origin("bot"),
+			anchor("bot"),
             z(-1),
 			pos(15, 150),
 			"bg1",
@@ -121,7 +119,7 @@ scene("game", ({ levelIdx, score }) => {
 			sprite("bean"),
 			area(),
 			body(),
-			origin("bot"),
+			anchor("bot"),
             z(1),
 			"player",
 		],
@@ -129,50 +127,49 @@ scene("game", ({ levelIdx, score }) => {
 			sprite("ground"),
 			area(),
 			solid(),
-			origin("bot"),
+			anchor("bot"),
 			z(2)
 		],
 		"-": () => [
 			sprite("ground2"),
 			area(),
 			solid(),
-			origin("bot"),
+			anchor("bot"),
 		],
         "*": () => [
             sprite('patwin'),
             area(),
-            origin("bot"),
+            anchor("bot"),
             'patwin',
         ],
         ">": () =>[
             sprite('next'),
             area(),
 			body(),
-			origin("bot"),
+			anchor("bot"),
             "next"
         ],
         "<": () =>[
             sprite('back'),
             area(),
 			body(),
-			origin("bot"),
+			anchor("bot"),
             "back"
         ],
         "&": () =>[
             sprite('rock'),
             area(),
 			body(),
-			origin("bot"),
+			anchor("bot"),
             "rock"
         ],
-        "|": () =>[
-			rect(1, 40) ,
-			color(200,200,200,0),
-            area(),
-			body(),
-			origin("bot"),
-            "cat"
-        ]
+        // "|": () =>[
+		// 	rect(1, 40) ,
+		// 	color(200,200,200),
+        //     area(),
+		// 	body(),
+		// 	anchor("bot")
+        // ]
 	})
 
 	// Get the player object from tag
