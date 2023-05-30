@@ -77,7 +77,7 @@ const LEVELS = [
 	[
 		"                  ",
 		"         .        ",
-		" < @             ",
+		" < @       ¡      ",
 		"===================",
 	],
 	[	
@@ -88,8 +88,6 @@ const LEVELS = [
 	]
 
 ]
-
-
 
 
 // Define a scene called "game". The callback will be run when we go() to the scene
@@ -194,7 +192,6 @@ scene("game", ({ levelIdx, score }) => {
     })
 
 	onKeyPress("space", () => {
-		console.log('jumped')
 		if (player.isGrounded()) {
 			player.jump(600)
             player.play('jump')
