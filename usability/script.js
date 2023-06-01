@@ -55,6 +55,42 @@ function dialogueShow (character, jsonData) {
 	loadSprite('bg','images/bg.png')
 	loadSprite('bg1','images/bg1.png')
 	loadSprite('ground', 'images/tile.png')
+	loadSprite('deer', 'images/deer.png', {
+		sliceX: 4,
+
+		anims: {
+			"idle3": {
+				from: 0,
+				to: 3,
+				speed: 3,
+				loop: true,
+			}
+		}
+	})
+	loadSprite('coyote', 'images/coyote.png', {
+		sliceX: 4,
+
+		anims: {
+			"idle4": {
+				from: 0,
+				to: 3,
+				speed: 2,
+				loop: true,
+			}
+		}
+	})
+	loadSprite('greeter', 'images/patwin.png', {
+		sliceX: 2,
+
+		anims: {
+			"idle3": {
+				from: 0,
+				to: 1,
+				speed: 1,
+				loop: true,
+			}
+		}
+	})
 	loadSprite('greeter', 'images/patwin.png', {
 		sliceX: 2,
 
@@ -97,7 +133,7 @@ function dialogueShow (character, jsonData) {
 		[	
 			"                                                                         ",
 			"                                    ,                                    ",
-			"  @   *                                                                  ",
+			"  @   *                 <                               {}                ",
 			"=========================================================================",
 		]
 	]
@@ -116,12 +152,10 @@ function dialogueShow (character, jsonData) {
 			tileHeight: 48,
 			pos: vec2(0, 410),
 			tiles: {
-				".": () => [
-					sprite("bg"),
+				"<": () => [
+					sprite("coyote"),
 					anchor("bot"),
-					z(-1),
-					pos(15, 150),
-					"bg",
+					"coyote",
 				],
 				",": () => [
 					sprite("bg"),
@@ -154,12 +188,12 @@ function dialogueShow (character, jsonData) {
 					anchor("bot"),
 					'greeter',
 				],
-				"&": () =>[
-					sprite('rock'),
+				"{": () =>[
+					sprite('deer'),
 					area(),
 					body({ isStatic: true }),
 					anchor("bot"),
-					"rock"
+					"deer"
 				]
 			}
 		})
@@ -167,6 +201,10 @@ function dialogueShow (character, jsonData) {
 		// Get the player object from tag
 		const player = level.get("player")[0]
 		const greeter = level.get("greeter")[0]
+		const deer = level.get("deer")[0]
+		const coyote = level.get("coyote")[0]
+		coyote.play('idle4')
+		deer.play('idle3')
 		player.play('idle')
 
 		player.onUpdate(() => {
