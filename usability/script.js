@@ -14,22 +14,31 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
         globalData = data;
 
 		const dataPoints = Object.keys(data);
-		function dialogueShow (character, jsonData) {
+	
+function dialogueShow (character, jsonData) {
 			
 		
-			let opener = ''
-			console.log(dataPoints)
-			console.log(jsonData[character].request)
+		console.log(dataPoints)
+		console.log(jsonData[character][0].opener)
 
-		}
-	
-		dialogueShow(dataPoints[1], globalData)
+		return dataPoints
+
+	}
+	console.log(dialogueShow)
+
+
+
+		dialogueShow(dataPoints[1], data)
     }
+
+	
 
 
 	// focuses on the canvas upon window load
 	addEventListener("load", (event) => {
 		document.querySelector('#canvas').focus();
+
+		alert('You are a 4th grader from Davis currently learning about California history and the Patwin tribe. Your teacher assigned you a worksheet about the patwin lifestyle and environment, and they gave you this link to help you complete it. Try to learn as much as you can from this link to complete your worksheet.')
 	});
 
 	// Start game
@@ -41,16 +50,12 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	})
 
 	// Load assets
-	loadFont("apl386", "fonts/apl386.ttf", { outline: 0, filter: "linear" })
+	loadFont("apl386", "fonts/apl386.ttf", { outline: 1, filter: "linear" })
 
 	loadSprite('bg','images/bg.png')
 	loadSprite('bg1','images/bg1.png')
 	loadSprite('ground', 'images/tile.png')
-	loadSprite('ground2', 'images/ground2.png')
-	loadSprite('next', 'images/next.png')
-	loadSprite('back', 'images/back.png')
-	loadSprite('rock', 'images/rock.png')
-	loadSprite('patwin', 'images/patwin.png', {
+	loadSprite('greeter', 'images/patwin.png', {
 		sliceX: 2,
 
 		anims: {
@@ -90,24 +95,11 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	// Design levels
 	const levels = [
 		[	
-			"                   ",
-			"         ,         ",
-			" @    *         > ",
-			"===================",
-		],
-		[
-			"                  ",
-			"         .        ",
-			" < @       ¡      ",
-			"===================",
-		],
-		[	
-			"                   ",
-			"          ,        ",
-			"       *      @ > ",
-			"===================",
+			"                                                                         ",
+			"                                    ,                                    ",
+			"  @   *                                                                  ",
+			"=========================================================================",
 		]
-
 	]
 
 
@@ -132,10 +124,11 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					"bg",
 				],
 				",": () => [
-					sprite("bg1"),
+					sprite("bg"),
 					anchor("bot"),
 					z(-1),
-					pos(15, 150),
+					pos(0, 50),
+					scale(2),
 					"bg1",
 				],
 				"@": () => [
@@ -144,6 +137,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					body(),
 					anchor("bot"),
 					z(3),
+					stay(),
 					"player",
 				],
 				"=": () => [
@@ -153,32 +147,12 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					anchor("bot"),
 					z(2)
 				],
-				"-": () => [
-					sprite("ground2"),
-					area(),
-					body({ isStatic: true }),
-					anchor("bot"),
-				],
 				"*": () => [
-					sprite('patwin'),
+					sprite('greeter'),
 					area(),
 					stay(),
 					anchor("bot"),
-					'patwin',
-				],
-				">": () =>[
-					sprite('next'),
-					area(),
-					body({ isStatic: true }),
-					anchor("bot"),
-					"next"
-				],
-				"<": () =>[
-					sprite('back'),
-					area(),
-					body({ isStatic: true }),
-					anchor("bot"),
-					"back"
+					'greeter',
 				],
 				"&": () =>[
 					sprite('rock'),
@@ -192,11 +166,20 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		// Get the player object from tag
 		const player = level.get("player")[0]
-		const patwin = level.get("patwin")[0]
+		const greeter = level.get("greeter")[0]
 		player.play('idle')
 
-		patwin.hasTalked = false
+		player.onUpdate(() => {
+			var currCam = camPos();
+			if ( currCam.x < player.pos.x && player.pos.x <= 3250) {
+			  camPos(player.pos.x, currCam.y);
+			} else if (currCam.x > player.pos.x && player.pos.x >= 500) {
+				camPos(player.pos.x, currCam.y)
+			} 
+		})
 		
+
+
 		// Movements
 		player.onGround(() => {
 			if (!isKeyDown("left") && !isKeyDown("right")) {
@@ -249,82 +232,52 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		// 				}
 		// 			}),
 		// 		])
-
-		// 		textbox.hidden = true
-		// 		text.hidden = true
-
-		// 		return {
-		// 			say(t) {
-		// 				text.text = t
-		// 				textbox.hidden = false
-		// 				text.hidden = false
-		// 			},
-		// 			dismiss() {
-		// 				if (!this.active()) {
-		// 					return
-		// 				}
-		// 				text.text = ""
-		// 				textbox.hidden = true
-		// 				text.hidden = true
-		// 			},
-		// 			active() {
-		// 				return !textbox.hidden
-		// 			},
-		// 			destroy() {
-		// 				textbox.destroy()
-		// 				text.destroy()
-		// 			}
-		// 		}
 		// }
 
 		// const dialog = addDialog()
 
-		let textbox
-		let text
+
 		// player talks to patwin
-		player.onCollideUpdate("patwin", () => {
+		player.onCollideUpdate("greeter", () => {
 
 
-			patwin.hasTalked = true
-			console.log(patwin.hasTalked)
+			greeter.hasTalked = true
+			console.log(greeter.hasTalked)
 
 			
-			// textbox = add([
-			// 	rect(350, 120, { radius: 16 }),
-			// 	anchor("center"),
-			// 	pos(575, 350),
-			// 	outline(2),
-			// ])
+			const textbox = add([
+				rect(350, 160, { radius: 21 }),
+				anchor("center"),
+				pos(575, 350),
+				outline(2),
+			])
 		
-			// text = add([
-			// 	pos(575, 350),
-			// 	anchor("center"),
-			// 	text("[test]hello! i lost my pet rock. can you help me find it?[/test]", {
-			// 		size: 21,
-			// 		width: 300, // it'll wrap to next line when width exceeds this value
-			// 		lineSpacing: 3,
-			// 		letterSpacing: -1,
-			// 		font: "apl386", // there're 4 built-in fonts: "apl386", "apl386o", "sink", and "sinko"
+			const yeet = add([
+				pos(575, 350),
+				anchor("center"),
+				text("[test]welcome to my village. feel free to look around. bring me back some acorn bread if you can[/test]", {
+					size: 21,
+					width: 300, // it'll wrap to next line when width exceeds this value
+					lineSpacing: 6,
+					letterSpacing: -1,
+					font: "apl386", // there're 4 built-in fonts: "apl386", "apl386o", "sink", and "sinko"
 
-			// 		styles: {
-			// 			"text": {
-			// 				color: rgb(0, 0, 0)
-			// 			}	
-			// 		}
-			// 	}),
-			// ])
+					styles: {
+						"test": {
+							color: rgb(0, 0, 0)
+						}	
+					}
+				}),
+			])
+
+			wait(3, () => {
+				destroy(yeet)
+				destroy(textbox)
+			})
 
 
 	})
 
-	// player.onCollideEnd("patwin", () => {
-
-	// 	console.log(patwin.hasTalked)
-	// 	textbox.destroy()
-	// 	text.destroy()
-
-
-	// })	
 
 		// function collide(spriteName, dialogueStatus) {
 		// 	if (spriteName.hasTalked === false) {
@@ -333,25 +286,27 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		// }
 
-		player.onCollide("next", () => {
-			// goes to next level
-			go("game", {
-				levelIdx: 1,
-			})
+		const prompt = add([
+			pos(54, 350),
+			anchor("left"),
+			text("[test]Use arrow keys to move and spacebar to jump[/test]", {
+				size: 21,
+				width: 300, // it'll wrap to next line when width exceeds this value
+				lineSpacing: 6,
+				letterSpacing: -1,
+				font: "apl386", // there're 4 built-in fonts: "apl386", "apl386o", "sink", and "sinko"
 
+				styles: {
+					"test": {
+						color: rgb(0, 0, 0)
+					}	
+				}
+			}),
+		])
 
+		onKeyPress(() => {
+			prompt.destroy()
 		})
-
-		player.onCollide("back", () => {
-			// goes to prev level
-			go("game", {
-				levelIdx: 2,
-			})
-		})
-
-		if (levelIdx == 0 || levelIdx == 2) {
-			patwin.play('idle2')
-		}
 
 	})
 
@@ -365,8 +320,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	
 	getData();
 	start()
-
-
 
 
 }())
