@@ -31,14 +31,12 @@ function dialogueShow (character, jsonData) {
 		dialogueShow(dataPoints[1], data)
     }
 
-	
-
 
 	// focuses on the canvas upon window load
 	addEventListener("load", (event) => {
 		document.querySelector('#canvas').focus();
 
-		alert('You are a 4th grader from Davis currently learning about California history and the Patwin tribe. Your teacher assigned you a worksheet about the patwin lifestyle and environment, and they gave you this link to help you complete it. Try to learn as much as you can from this link to complete your worksheet.')
+		// alert('You are a 4th grader from Davis currently learning about California history and the Patwin tribe. Your teacher assigned you a worksheet about the patwin lifestyle and environment, and they gave you this link to help you complete it. Try to learn as much as you can from this link to complete your worksheet. If the sprite disappears, please refresh the page.')
 	});
 
 	// Start game
@@ -74,7 +72,7 @@ function dialogueShow (character, jsonData) {
 			"idle4": {
 				from: 0,
 				to: 3,
-				speed: 2,
+				speed: 4,
 				loop: true,
 			}
 		}
@@ -191,7 +189,6 @@ function dialogueShow (character, jsonData) {
 				"{": () =>[
 					sprite('deer'),
 					area(),
-					body({ isStatic: true }),
 					anchor("bot"),
 					"deer"
 				]
@@ -205,6 +202,7 @@ function dialogueShow (character, jsonData) {
 		const coyote = level.get("coyote")[0]
 		coyote.play('idle4')
 		deer.play('idle3')
+		greeter.play('idle2')
 		player.play('idle')
 
 		player.onUpdate(() => {
@@ -308,7 +306,7 @@ function dialogueShow (character, jsonData) {
 				}),
 			])
 
-			wait(3, () => {
+			wait(0.1, () => {
 				destroy(yeet)
 				destroy(textbox)
 			})
