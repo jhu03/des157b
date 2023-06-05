@@ -1,0 +1,23 @@
+{
+    "greeter" : [
+        {"opener" : "Hello, stranger. Welcome to the Patwin village of Topaidihi."},
+        {"closer" : "I have not heard of this 'seal' you’re searching for, but perhaps the others in the village have."}
+    ],
+    "hunter" : [
+        {"opener" : "What do you think of my fit? Cool isn’t it? I wear this to get closer to the deer so we don’t frighten them when we hunt!"},
+        {"request" : "Speaking of the hunt, we’re going out soon. Can you help me find my bow?"},
+        {"closer" : "Sweet, thanks a bunch! Here’s some berries from our previous outing. I will keep an eye out for that “seal” you’re looking for."}
+    ], 
+    "weaver" : [
+        {"opener" : "Ugh, I’m so close to finishing this basket but I’m almost out of blue rye fibers! Please find some for me so I can finish this faster. I will trade you with something really cool if you help me out!"},
+        {"request" : "Oh my goodness, you’re a life saver! I can definitely finish this basket now."},
+        {"closer" : "Oh the cool thing? Well, I heard the chief found something mysterious in the forest earlier today. No one knows what it is but it is quite shiny. It looks like a small part of something bigger."}
+    ],
+    "trader" : [
+        {"opener" : "Man, fishing sure is hard. I’m not used to this bone harpoon. Maybe a net would work better? I saw some back in the village."},
+        {"request" : "Thanks for the help! I surely can catch some salmon now. Here, take some clam shells as my token of gratitude."},
+        {"closer" : "The object? I heard it was made of a rare rock, something I’ve never seen before. The color looks a bit like wood or acorn…"}
+    ]
+
+
+}
