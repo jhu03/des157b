@@ -278,7 +278,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		player.onUpdate(() => {
 			let currCam = camPos();
 			if ( currCam.x < player.pos.x && player.pos.x <= 3250) {
-			  camPos(player.pos.x, currCam.y);
+				camPos(player.pos.x, currCam.y);
 			} else if (currCam.x > player.pos.x && player.pos.x >= 500) {
 				camPos(player.pos.x, currCam.y)
 			} 
@@ -287,10 +287,11 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		// player talks to patwin
 		player.onCollideUpdate("greeter", () => {
 
-			addText(dialogueShow(globalData, "greeter", greeter.dialog))
+			// addText(dialogueShow(globalData, "greeter", greeter.dialog))
+			addText("Hello, stranger. Welcome to the Patwin village of Topaidihi.")
 
 			onKeyPress("space", () => {
-				greeter.dialog = 2
+				npcCollide(greeter)
 			})
 
 			wait(3, () => {
@@ -323,7 +324,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		player.onCollideUpdate("deer", () => {
 
 			// addText(`testing dialog ${hunter.dialog}`)
-			addText("Deers are a common animal in Patwin lifestyles")
+			addText("Deers are a common animal in Patwin lifestyles. Let's let the hunter know we found some.")
 
 			hunter.requestComplete = true;
 
@@ -341,7 +342,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			onKeyPress("space", () => {
 
 				if (npcs[npcNum].dialog === 1 && npcs[npcNum].requestComplete === true) {
-					npcs[npcNum].dialog = 3
+					npcs[npcNum].dialog = 2
 				} else {
 					npcs[npcNum].dialog = 1
 				}
