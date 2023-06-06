@@ -13,6 +13,13 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		document.querySelector('#canvas').focus();
 	});
 
+	const missionBtn = document.querySelector('#mission');
+	missionBtn.addEventListener('click', function() {
+		document.querySelector('#overlay').style.display = 'none';
+		document.querySelector('#overlayBg').style.display = 'none'
+		document.querySelector('#canvas').focus();
+	})
+
 	// Start game
 	kaboom({
 		width: 1000,
@@ -26,6 +33,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	loadSprite('bg','images/bg.png')
 	loadSprite('ground', 'images/tile.png')
 	loadSprite('hunter', 'images/deerMan.png')
+	loadSprite('weaver', 'images/weaver.png')
 	loadSprite('deer', 'images/deer.png', {
 		sliceX: 4,
 
@@ -118,7 +126,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			[	
 				"                                                                         ",
 				"                                    ,                                    ",
-				"  @      *              <  ^                            {}                ",
+				"  @      *              <  ^               b            {}                ",
 				"=========================================================================",
 			], {
 			tileWidth: 54,
@@ -169,6 +177,12 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					scale(0.45),
 					'hunter',
 				],
+				"b": () =>[
+					sprite('weaver'),
+					area(),
+					anchor("bot"),
+					"weaver"
+				],
 				"{": () =>[
 					sprite('deer'),
 					area(),
@@ -184,6 +198,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		const deer = level.get("deer")[0]
 		const coyote = level.get("coyote")[0]
 		const hunter = level.get("hunter")[0]
+		const weaver = level.get("weaver")[0]
 		coyote.play('idle')
 		deer.play('idle')
 		greeter.play('idle')
@@ -191,8 +206,8 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		// creating arrays for npcs as consts and strings
 		// consts are for updating sprite properties while strings are for function inputs
-		const npcs = [hunter]
-		const npcString = ["hunter"]
+		const npcs = [hunter, weaver]
+		const npcString = ["hunter", "weaver"]
 		const items = [deer,coyote]
 
 		// assigning properties to all sprties
@@ -215,8 +230,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		for(let i=0;i<items.length;i++) {
 			itemStatus(items[i])
-
-			console.log(items[i].collected)
 		}
 
 		
@@ -291,6 +304,9 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			addText("Hello, stranger. Welcome to the Patwin village of Topaidihi.")
 
 			onKeyPress("space", () => {
+				player.onCollideUpdate("greeter", () => {
+					addText("I have not heard of this 'seal' you’re searching for, but perhaps the others in the village have.")
+				})
 				npcCollide(greeter)
 			})
 
@@ -332,26 +348,27 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		npcString.forEach(npc => 
 
-
 			player.onCollideUpdate(`${npc}`, () => {
 
 				let npcNum = npcString.indexOf(npc)
 				addText(dialogueShow(globalData, `${npc}`, npcs[npcNum].dialog))
-				
 
-			onKeyPress("space", () => {
+				if (isKeyPressed("space")) {
 
-				if (npcs[npcNum].dialog === 1 && npcs[npcNum].requestComplete === true) {
-					npcs[npcNum].dialog = 2
+					onKeyPress("space", () => {
+
+						if (npcs[npcNum].dialog === 1 && npcs[npcNum].requestComplete === true) {
+							npcs[npcNum].dialog = 2
+						} else {
+							npcs[npcNum].dialog = 1
+						}
+					})
 				} else {
-					npcs[npcNum].dialog = 1
+						wait(5, () => {
+							npcCollide(npcs[npcNum])
+						})
 				}
 
-			})
-			
-			wait(3, () => {
-				npcCollide(npcs[npcNum])
-			})
 			})
 		)
 
@@ -399,7 +416,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			if (spriteName.dialog === 0) {
 				spriteName.hasTalked = true;
 				spriteName.dialog = 1;
-				return spriteName.dialog;
 			} else if (spriteName.hasTalked === true && spriteName.requestComplete === false) {
 				return spriteName.dialog;
 			} else if (spriteName.requestComplete === true) {
@@ -411,7 +427,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		// creates instruction prompt for player movement
 		const prompt = add([
-			pos(54, 350),
+			pos(54, 375),
 			anchor("left"),
 			text("[test]Use arrow keys to move[/test]", {
 				size: 21,

@@ -32,3 +32,35 @@ p {
     top: 40%;
     transform: translate(-50%, -50%);
 }
+
+#overlay {
+
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+
+    background-color: antiquewhite;
+
+    z-index: 10;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 15px;
+
+    padding: 60px;
+}
+
+#overlayBg {
+    width: 1000px;
+    height: 550px;
+    background-color: rgba(45, 45, 45, 0.7);
+    
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    z-index: 9;
+}
