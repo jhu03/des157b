@@ -25,7 +25,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	loadFont("apl386", "fonts/apl386.ttf", { outline: 1, filter: "linear" })
 	loadSprite('bg','images/bg.png')
 	loadSprite('ground', 'images/tile.png')
-	loadSprite('hunter', 'images/deerman.png')
+	loadSprite('hunter', 'images/deerMan.png')
 	loadSprite('deer', 'images/deer.png', {
 		sliceX: 4,
 
