@@ -41,7 +41,7 @@ header, section, footer {
 }
 
 section:nth-child(even){
-    background-color: aliceblue;
+    background-color: #f4eefc;
 }
 
 .container {
@@ -71,14 +71,9 @@ img {
 }
 
 @media only screen and (min-width: 1000px) {
-    .container{ margin: auto; }
+    .container{ margin: auto; max-width: 800px; }
     nav ul {
         max-width: 1000px;
         margin: auto;
-    }
-    .content { 
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 20px;
     }
 }
