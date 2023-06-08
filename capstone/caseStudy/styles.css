@@ -65,6 +65,11 @@ img {
     margin-bottom: 20px;
 }
 
+.images {
+    display: flex;
+    flex-direction: row;
+}
+
 @media only screen and (min-width: 768px) {
     nav ul { display: flex; }
     nav ul li { flex: 1; }

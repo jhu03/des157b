@@ -18,6 +18,10 @@ h1 {
     margin-bottom: 5px;
 }
 
+h2 {
+    margin: 0;
+}
+
 p {
     margin: 0px 0px 10px;
 }
@@ -39,6 +43,7 @@ p {
     left: 50%;
     top: 40%;
     transform: translate(-50%, -50%);
+    width: 50%;
 
     background-color: antiquewhite;
 
@@ -50,7 +55,7 @@ p {
     justify-content: space-evenly;
     gap: 15px;
 
-    padding: 60px;
+    padding: 50px;
 }
 
 #overlayBg {
