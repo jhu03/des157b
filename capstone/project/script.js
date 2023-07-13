@@ -5,7 +5,8 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 	'use strict';
 
-	let globalData;
+	let globalDataNpc;
+	let globalDataItems;
 
 
 	// focuses on the canvas upon window load
@@ -134,8 +135,13 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		async function getData(){
 			const dialogue = await fetch('data/data.json');
-			const data = await dialogue.json();
-			globalData = data;
+			const dataNpc = await dialogue.json();
+
+			const items = await fetch('data/itemData.json');
+			const dataItems = await items.json();
+
+			globalDataNpc = dataNpc;
+			globalDataItems = dataItems;
 		}
 
 		// jump characteristics
@@ -290,7 +296,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		}
 
 		
-
+		let textboxColor = [255,255,255];
 		function dialogueShow (data, spriteName, dialogLine) {
 			const dataPoints = Object.keys(data);
 
@@ -302,14 +308,18 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 				if (character === spriteName) {
 					if (dialogLine === 0) {
 						line = data[dataPoints[i]].opener;
+						textboxColor = [255,255,255];
 					} else if (dialogLine === 1) {
 						line = data[dataPoints[i]].request;
+						textboxColor = [206, 249, 255];
 					} else if (dialogLine === 2) {
 						line = data[dataPoints[i]].closer;
+						textboxColor = [217,243,186];
 					}
 					return line;
 				}
 			}
+			return textboxColor;
 			
 		}
 
@@ -331,7 +341,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		
 		
 
-		// ------ Movements -----
+		// ------ MOVEMENTS ----- 
 		player.onGround(() => {
 			if (!isKeyDown("left") && !isKeyDown("right")) {
 				player.play("idle")
@@ -368,10 +378,13 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			} 
 		})
 
+
+		// ------ COLLISIONS ----- 
+
 		// player talks to patwin, unique function since Patwin does not have requests 
 		player.onCollideUpdate("greeter", () => {
 
-			// addText(dialogueShow(globalData, "greeter", greeter.dialog))
+			// addText(dialogueShow(globalDataNpc, "greeter", greeter.dialog))
 			addText("Hello, stranger. Welcome to the Patwin village of Topaidihi.")
 
 			onKeyPress("space", () => {
@@ -400,7 +413,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		npcString.forEach(npc => 
 			player.onCollideUpdate(`${npc}`, () => {
 				let npcNum = npcString.indexOf(npc)
-				addText(dialogueShow(globalData, npc, npcs[npcNum].dialog))
+				addText(dialogueShow(globalDataNpc, npc, npcs[npcNum].dialog))
 
 				if (isKeyPressed("space")) {
 
@@ -420,7 +433,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 				itemString.forEach(item =>
 					player.onCollideUpdate(`${item}`, () => {
-						itemCollection(globalData, item, npcs[npcNum])
+						itemCollection(globalDataNpc, item, npcs[npcNum])
 					})
 				)
 
@@ -438,10 +451,11 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 				// pos(width()/2, height()/5),
 				// pos(player.pos.x, height()/2),
 				outline(2),
+				color(textboxColor),
 				fixed()
 			])
 		
-			const yeet = add([
+			const dialogText = add([
 				// pos(575, 350),
 				pos(textbox.pos),
 				anchor("center"),
@@ -462,7 +476,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			])
 
 			wait(0.1, () => {
-				destroy(yeet)
+				destroy(dialogText)
 				destroy(textbox)
 			})
 		}

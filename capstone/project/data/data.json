@@ -1,11 +1,7 @@
 {
-    "greeter" : {
-        "opener" : "Hello, stranger. Welcome to the Patwin village of Topaidihi.",
-        "closer" : "I have not heard of this 'seal' you’re searching for, but perhaps the others in the village have."
-    },
     "hunter" : {
         "opener" : "What do you think of my fit? Cool isn’t it? I wear this to get closer to the deer so we don’t frighten them when we hunt!",
-        "request" : "Speaking of the hunt, we’re going out soon. Can you help me some deer?",
+        "request" : "Speaking of the hunt, we’re going out soon. Can you help me find some deer?",
         "closer" : "Sweet, thanks! Here’s some berries from the manzanita bushes I just collected. I will keep an eye out for that “seal” you’re looking for.",
         "item" : "deer"
     },
