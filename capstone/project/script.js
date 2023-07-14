@@ -152,7 +152,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			[	
 				"                                                                                                ",
 				"                                                 ,                                              ",
-				"  @      *              <  ^               b            {           g  fffff         >          ",
+				"  @      *              <  ^  {             b                       g  fffff         >          ",
 				"=======================================================================================~~~~~~~~~",
 			], {
 			tileWidth: 54,
@@ -315,6 +315,8 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					} else if (dialogLine === 2) {
 						line = data[dataPoints[i]].closer;
 						textboxColor = [217,243,186];
+					} else if (dialogLine === 3) {
+						line = data[dataPoints[i]].seal;
 					}
 					return line;
 				}
@@ -415,20 +417,19 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 				let npcNum = npcString.indexOf(npc)
 				addText(dialogueShow(globalDataNpc, npc, npcs[npcNum].dialog))
 
+				// advances dialog if space is pressed
 				if (isKeyPressed("space")) {
-
-					onKeyPress("space", () => {
-
-						if (npcs[npcNum].dialog === 1 && npcs[npcNum].requestComplete === true) {
-							npcs[npcNum].dialog = 2
-						} else {
-							npcs[npcNum].dialog = 1
-						}
-					})
+					if (npcs[npcNum].dialog === 1 && npcs[npcNum].requestComplete === true) {
+						npcs[npcNum].dialog = 2
+					} else if (npcs[npcNum].dialog === 2 ) {
+						npcs[npcNum].dialog = 3;
+					} else {
+						npcs[npcNum].dialog = 1
+					}
 				} else {
-						wait(5, () => {
-							npcCollide(npcs[npcNum])
-						})
+					wait(8, () => {
+						npcCollide(npcs[npcNum])
+					})
 				}
 
 				itemString.forEach(item =>
@@ -489,10 +490,12 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 				spriteName.dialog = 1;
 			} else if (spriteName.hasTalked === true && spriteName.requestComplete === false) {
 				return spriteName.dialog;
-			} else if (spriteName.requestComplete === true) {
+			} else if (spriteName.dialog === 2) {
+				spriteName.dialog = 3;
+			// need a ensure sprite dialog stays at 3 once dialog line 2 is printed
+			} else if (spriteName.dialog === 1 && spriteName.requestComplete === true) {
 				spriteName.dialog = 2;
 			}
-
 			return spriteName.dialog;
 		}
 

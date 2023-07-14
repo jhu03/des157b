@@ -2,7 +2,8 @@
     "hunter" : {
         "opener" : "What do you think of my fit? Cool isn’t it? I wear this to get closer to the deer so we don’t frighten them when we hunt!",
         "request" : "Speaking of the hunt, we’re going out soon. Can you help me find some deer?",
-        "closer" : "Sweet, thanks! Here’s some berries from the manzanita bushes I just collected. I will keep an eye out for that “seal” you’re looking for.",
+        "closer" : "Sweet, thanks! Here’s some berries from the manzanita bushes I just collected.",
+        "seal": "A seal piece? Hm, I haven't heard of this seal thing, but I will keep an eye out it.",
         "item" : "deer"
     },
     "weaver" : {
@@ -15,7 +16,8 @@
     "gatherer" : {
         "opener" : "Oh hey, no need to panic! These fires are 100% controlled. We’re just burning the land so new shoots grow and lure in game.",
         "request" : "You’re looking for some blue rye? You’re in luck! We just harvested this today. I’ll trade it for some clam shells.",
-        "closer" : "Ooh I can’t believe you got 5 clam shells that quickly, impressive! Here’s the rye fibers, as promised.",
+        "closer" : "I can’t believe you got 5 clam shells that quickly, impressive! Here’s the rye fibers, as promised.",
+        "seal" : "I'm not sure what a seal is but I heard it was hard enough to smash open clams.",
         "item" : "shells"
     },
     "fisher" : {
@@ -28,7 +30,8 @@
     "builder" : {
         "opener" : "Oh this? This is the village dance house! We are about to have our annual Kuksa to bring good health and bountiful hunt to our village.",
         "request" : "Would you please find me some more oak and grapevines? I need a few more supports.",
-        "closer" : "Amazing, thank you! We can definitely finish this by sundown. The chief? He’s inside here. I saw him holding something earlier. Could it be an offering from the earth itself bringing wealth to our village?",
+        "closer" : "Amazing, thank you! We can definitely finish this by sundown.",
+        "seal" : " The chief? He’s inside here. I saw him holding something earlier. Could it be an offering from the earth itself bringing wealth to our village?",
         "item" : "vines"
     }
 }
