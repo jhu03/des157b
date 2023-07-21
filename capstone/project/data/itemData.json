@@ -1,34 +1,29 @@
 {
     "deer" : {
+        "item" : "Deer",
         "info" : "deer popular",
-        "closer" : "I have not heard of this 'seal' you’re searching for, but perhaps the others in the village have."
+        "image" : "images/deer.png"
     },
-    "hunter" : {
-        "opener" : "What do you think of my fit? Cool isn’t it? I wear this to get closer to the deer so we don’t frighten them when we hunt!",
-        "request" : "Speaking of the hunt, we’re going out soon. Can you help me some deer?",
-        "closer" : "Sweet, thanks! Here’s some berries from the manzanita bushes I just collected. I will keep an eye out for that “seal” you’re looking for.",
-        "item" : "deer"
-    },
-    "weaver" : {
+    "rye" : {
         "opener" : "Ugh, I’m so close to finishing this basket but I’m almost out of blue rye fibers!",
         "request" : "Please find some for me so I can finish this faster. I will trade you with something really cool!",
         "closer" : "The object? I heard it was made of a rare rock, something I’ve never seen before. The color looks a bit like wood or acorn…",
         "seal" : "Oh the cool thing? Well, I heard the chief found something in the forest earlier today. No one knows what it is but it is quite shiny. It looks like a small part of something bigger.",
         "item" : "rye"
     },
-    "gatherer" : {
+    "shells" : {
         "opener" : "Oh hey, no need to panic! These fires are 100% controlled. We’re just burning the land so new shoots grow and lure in game.",
         "request" : "You’re looking for some blue rye? You’re in luck! We just harvested this today. I’ll trade it for some clam shells.",
         "closer" : "Ooh I can’t believe you got 5 clam shells that quickly, impressive! Here’s the rye fibers, as promised.",
         "item" : "shells"
     },
-    "fisher" : {
+    "net" : {
         "opener" : "Man, fishing sure is hard. I’m not used to this bone harpoon. Maybe a net would work better? I saw some back in the village.",
         "request" : "Thanks for the help! I surely can catch some salmon now. Here, take some clam shells as my token of gratitude.",
         "closer" : "The object? I heard it was made of a rare rock, something I’ve never seen before. The color looks a bit like wood or acorn…",
         "item" : "net"
     },
-    "builder" : {
+    "vines" : {
         "opener" : "Oh this? This is the village dance house! We are about to have our annual Kuksa to bring good health and bountiful hunt to our village.",
         "request" : "Would you please find me some more oak and grapevines? I need a few more supports.",
         "closer" : "Amazing, thank you! We can definitely finish this by sundown. The chief? He’s inside here. I saw him holding something earlier. Could it be an offering from the earth itself bringing wealth to our village?",

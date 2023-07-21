@@ -14,10 +14,13 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		document.querySelector('#canvas').focus();
 	});
 
+
+
 	const missionBtn = document.querySelector('#mission');
+	const overlayBg = document.querySelector('#overlayBg')
 	missionBtn.addEventListener('click', function() {
 		document.querySelector('#overlay').style.display = 'none';
-		document.querySelector('#overlayBg').style.display = 'none'
+		overlayBg.style.display = 'none'
 		document.querySelector('#canvas').focus();
 	})
 
@@ -36,6 +39,8 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	loadSprite('bg','images/bg.png')
 	loadSprite('ground', 'images/tile.png')
 	loadSprite('water', 'images/water.png')
+	loadSprite('net', 'images/net.png')
+	loadSprite('backpack', 'images/backpack.png', {sliceX: 2})
 
 	// load npc sprites
 	loadSprite('hunter', 'images/deerMan.png')
@@ -92,7 +97,19 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			}
 		}
 	})
-	loadSprite('greeter', 'images/patwin.png', {
+	loadSprite('chief', 'images/chief.png', {
+		sliceX: 2,
+
+		anims: {
+			"idle": {
+				from: 0,
+				to: 1,
+				speed: 1,
+				loop: true,
+			}
+		},
+	})
+	loadSprite('builder', 'images/builder.png', {
 		sliceX: 2,
 
 		anims: {
@@ -137,11 +154,14 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			const dialogue = await fetch('data/data.json');
 			const dataNpc = await dialogue.json();
 
+			globalDataNpc = dataNpc;
+
 			const items = await fetch('data/itemData.json');
 			const dataItems = await items.json();
 
-			globalDataNpc = dataNpc;
 			globalDataItems = dataItems;
+
+			createButtons(dataItems);
 		}
 
 		// jump characteristics
@@ -150,10 +170,10 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		// Use the level passed, or first level
 		const level = addLevel(
 			[	
-				"                                                                                                ",
-				"                                                 ,                                              ",
-				"  @      *              <  ^  {             b                       g  fffff         >          ",
-				"=======================================================================================~~~~~~~~~",
+				"                                                                                                  ",
+				"                                                 ,                                                ",
+				"  @      *           c     ^  {   b          w          n   <          g  fffff         >          ",
+				"========================================================================================~~~~~~~~~",
 			], {
 			tileWidth: 54,
 			tileHeight: 48,
@@ -162,6 +182,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 				"<": () => [
 					sprite("coyote"),
 					anchor("bot"),
+					area(),
 					"coyote",
 				],
 				",": () => [
@@ -209,6 +230,13 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					anchor("bot"),
 					'greeter',
 				],
+				"c": () => [
+					sprite('chief'),
+					area(),
+					stay(),
+					anchor("bot"),
+					'chief',
+				],
 				"^": () => [
 					sprite('hunter'),
 					area(),
@@ -217,7 +245,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					scale(0.45),
 					'hunter',
 				],
-				"b": () =>[
+				"w": () =>[
 					sprite('weaver'),
 					area(),
 					anchor("bot"),
@@ -235,11 +263,24 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					anchor("bot"),
 					"fisher"
 				],
+				"b": () =>[
+					sprite('builder'),
+					area(),
+					anchor("bot"),
+					scale(2.3),
+					"builder"
+				],
 				"{": () =>[
 					sprite('deer'),
 					area(),
 					anchor("bot"),
 					"deer"
+				],
+				"n": () =>[
+					sprite('net'),
+					area(),
+					anchor("bot"),
+					"net"
 				]
 			}
 		})
@@ -247,17 +288,48 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		// Get the player object from tag
 		const player = level.get("player")[0]
 		const greeter = level.get("greeter")[0]
+		const chief = level.get("chief")[0]
 		const deer = level.get("deer")[0]
 		const coyote = level.get("coyote")[0]
 		const hunter = level.get("hunter")[0]
 		const weaver = level.get("weaver")[0]
 		const gatherer = level.get("gatherer")[0]
 		const fisher = level.get("fisher")[0]
+		const builder = level.get("builder")[0]
 		const fire = level.get("fire")
+		const net = level.get("net")[0]
+		const backpack = add([
+			sprite('backpack'),
+			pos(925, 25),
+			scale(0.7),
+			fixed(),
+			area(),
+		])
 
+		add([
+			pos(945, 90),
+			anchor("center"),
+			text(`[test]inventory[/test]`, {
+				size: 14,
+				lineSpacing: 6,
+				letterSpacing: -1,
+				font: "apl386",
+
+				styles: {
+					"test": {
+						color: rgb(0, 0, 0)
+					}	
+				}
+			}),
+			fixed()
+		])
+
+		
 		coyote.play('idle')
 		deer.play('idle')
 		greeter.play('idle')
+		chief.play('idle')
+		builder.play('idle')
 		player.play('idle')
 
 		// needed to get all fire sprites to play animation
@@ -268,10 +340,14 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		// creating arrays for npcs as consts and strings
 		// consts are for updating sprite properties while strings are for function inputs
-		const npcs = [hunter, weaver, gatherer, fisher]
-		const npcString = ["hunter", "weaver", "gatherer", "fisher"]
-		const items = [deer, coyote]
-		const itemString = ["deer", "coyote"]
+		const npcs = [hunter, weaver, gatherer, fisher, builder]
+		const npcString = ["hunter", "weaver", "gatherer", "fisher", "builder"]
+		const items = [deer, coyote, net]
+		const itemString = ["deer", "coyote", "net"]
+
+		// arrays for npc quests that are completed by interacting with other npcs
+		const npcRequests = [weaver, gatherer, fisher];
+		const npcRequestsString = ["weaver", "gatherer", "fisher"]
 
 		// assigning properties to all sprties
 		function dialogStatus(sprite) {
@@ -296,7 +372,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		}
 
 		
-		let textboxColor = [255,255,255];
+		let textboxColor = [255,255,255]; // default textbox color to white
 		function dialogueShow (data, spriteName, dialogLine) {
 			const dataPoints = Object.keys(data);
 
@@ -304,40 +380,47 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 				let character = dataPoints[i]
 				let line;
 
-				// checking if character from json file matches sprite input
+				// checking if character from json file matches function sprite input
 				if (character === spriteName) {
 					if (dialogLine === 0) {
-						line = data[dataPoints[i]].opener;
+						line = data[character].opener;
 						textboxColor = [255,255,255];
 					} else if (dialogLine === 1) {
-						line = data[dataPoints[i]].request;
+						line = data[character].request;
 						textboxColor = [206, 249, 255];
 					} else if (dialogLine === 2) {
-						line = data[dataPoints[i]].closer;
+						line = data[character].closer;
 						textboxColor = [217,243,186];
 					} else if (dialogLine === 3) {
-						line = data[dataPoints[i]].seal;
+						line = data[character].seal;
 					}
 					return line;
 				}
 			}
-			return textboxColor;
-			
+			return textboxColor;	
 		}
 
-		function itemCollection (data, itemName, spriteName) {
+		function itemCollection (data, itemName, spriteIndex, spriteName) {
 			const dataPoints = Object.keys(data);
 
-			for(let i=0; i<dataPoints.length;i++) {
-				let character = dataPoints[i]
-				let item = data[dataPoints[i]].item
-				
-				// checking if character from json file matches sprite input
+			let item = data[dataPoints[spriteIndex]].item
+
+			// for(let i=0; i<dataPoints.length; i++) {
+			// 	let character = dataPoints[i]
+			// 	let item = data[dataPoints[i]].item
+
+			// 	// checking if character from json file matches sprite input
 				if (item === itemName) {
 					spriteName.requestComplete = true;
-					// console.log(character)
-					// console.log(character.requestComplete)
 				}
+
+			if (spriteName === fisher) {
+
+				wait(15, () => {
+					gatherer.requestComplete = true;
+					weaver.requestComplete = true;
+				})
+				
 			}
 		}
 		
@@ -350,13 +433,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			} else {
 				player.play("run")
 			}
-		})
-
-		onKeyPress("space", () => {
-			// if (player.isGrounded()) {
-			// 	player.jump(600)
-			// 	player.play('jump')
-			// }
 		})
 
 		onKeyDown("left", () => {
@@ -434,13 +510,18 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 				itemString.forEach(item =>
 					player.onCollideUpdate(`${item}`, () => {
-						itemCollection(globalDataNpc, item, npcs[npcNum])
+						itemCollection(globalDataNpc, item, npcNum, npcs[npcNum])
+		
 					})
 				)
-
 			})
 		)
 
+		if (builder.requestComplete === true) {
+			if(isKeyPressed("space")) {
+				
+			}
+		}
 
 
 		// creates sprite text and textboxs
@@ -491,7 +572,10 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			} else if (spriteName.hasTalked === true && spriteName.requestComplete === false) {
 				return spriteName.dialog;
 			} else if (spriteName.dialog === 2) {
-				spriteName.dialog = 3;
+				wait(10, () => {
+					spriteName.dialog = 3;
+				})
+				// spriteName.dialog = 3;
 			// need a ensure sprite dialog stays at 3 once dialog line 2 is printed
 			} else if (spriteName.dialog === 1 && spriteName.requestComplete === true) {
 				spriteName.dialog = 2;
@@ -503,15 +587,15 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		const prompt = add([
 			pos(54, 375),
 			anchor("left"),
-			text("[test]Use arrow keys to move[/test]", {
+			text("[textStyle]Use arrow keys to move[/textStyle]", {
 				size: 21,
-				width: 300, // it'll wrap to next line when width exceeds this value
+				width: 350, // it'll wrap to next line when width exceeds this value
 				lineSpacing: 6,
 				letterSpacing: -1,
 				font: "apl386", // there're 4 built-in fonts: "apl386", "apl386o", "sink", and "sinko"
 
 				styles: {
-					"test": {
+					"textStyle": {
 						color: rgb(0, 0, 0)
 					}	
 				}
@@ -522,7 +606,68 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			prompt.destroy()
 		})
 
+
+		// ------ INVENTORY SYSTEM ----- 
+
+		// backpack openning animation
+		backpack.onHoverUpdate(() => {
+			backpack.frame = 1
+			setCursor("pointer")
+		})
+
+		backpack.onHoverEnd(() => {
+			backpack.frame = 0
+			setCursor("default")
+		})
+
+		backpack.onClick(() => {
+			const inventory = document.querySelector('#inventory')
+			overlayBg.style.display = 'block'
+			inventory.className = 'show'
+		})
+
+		// functions for changing inventory info
+		function createButtons(data) {
+			const dataPoints = Object.keys(data);
+
+			for(let i=0; i<dataPoints.length; i++){
+				const button = document.querySelector('#itemList div').innerHTML += `<button id='${dataPoints[i]}'>${dataPoints[i]}</button>`
+			}
+			createEvents(data)
+
+		}
+
+		function createEvents(data) {
+			const dataPoints = Object.keys(data);
+
+			const buttons = document.querySelectorAll('#itemList button')
+
+			for (const button of buttons) {
+				button.addEventListener('click', function(event){
+					const buttonItem = event.target.id;
+	
+					updateInterface(buttonItem, data); // calls function to change UI
+				})
+			}	
+		}
+
+		function updateInterface(item, data) {
+			document.querySelector('#itemName').innerHTML = `${data[item].item}`;
+			document.querySelector('#itemDescrip').innerHTML = `${data[item].info}`
+		}
+
+
+		// closes overlay
+		document.querySelector('#close').addEventListener('click',()=>{
+			overlayBg.style.display = 'none'
+			inventory.className = 'hide'
+			document.querySelector('#canvas').focus();
+		})
+
+
+	
 		getData();
+
 	})
 
 	function start() {

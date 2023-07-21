@@ -7,6 +7,8 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323" rel="stylesheet">
@@ -26,6 +28,7 @@
 
     <canvas id="canvas">
     </canvas>
+
     <header>
         <h1>quest for the seal</h1>
         <p>can you find the missing seal pieces before it's too late?</p>
@@ -42,6 +45,24 @@
         <button type="button" id="mission">Accept Mission</button>
     </section>
 
+    
+
+    <section id="inventory" class="hide">
+        
+        <i id="close" class="fas fa-times"></i>
+        <div id="itemList">
+            <h2>Inventory</h2>
+            <div></div>
+        </div>
+
+        <div id="itemContent">
+            <h2 id="itemName">Item</h2>
+            <img id="itemImg">
+            <p id="itemDescrip">yeet</p>
+        </div>
+
+    </section>
+    
     <div id="overlayBg"></div>
 </body>
 </html>
