@@ -29,7 +29,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		width: 1000,
 		height: 550,
 		canvas: document.querySelector('#canvas'),
-		background: [ 243, 251, 255, ]
+		background: [243, 251, 255]
 	})
 
 	// Load assets
@@ -142,13 +142,28 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	})
 
 	// character speed
-	// const SPEED = 200
-	const SPEED = 400
+	const speed = 400
+
+
+	const levelSelect = [
+		[	
+			"                                                                                                   ",
+			"                                                 ,                                                 ",
+			"  @      *                 ^  {   b d         w          n   <          g  fffff         >         ",
+			"==========================================================================================~~~~~~~~~",
+		],
+		[
+			"                                                                                                  ",
+			"                                                                                                  ",
+			"  @                    c                                                              *^{bdw'n<gf>",
+			"================================================================================================"
+		]
+	]
 
 
 	// Define a scene called "game". The callback will be run when we go() to the scene
 	// Scenes can accept argument from go()
-	scene("game", () => {
+	scene("game", ({levelIdx}) => {
 
 		async function getData(){
 			const dialogue = await fetch('data/data.json');
@@ -168,13 +183,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		setGravity(2400)
 
 		// Use the level passed, or first level
-		const level = addLevel(
-			[	
-				"                                                                                                  ",
-				"                                                 ,                                                ",
-				"  @      *           c     ^  {   b          w          n   <          g  fffff         >          ",
-				"========================================================================================~~~~~~~~~",
-			], {
+		const level = addLevel(levelSelect[levelIdx], {
 			tileWidth: 54,
 			tileHeight: 48,
 			pos: vec2(0, 410),
@@ -183,7 +192,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					sprite("coyote"),
 					anchor("bot"),
 					area(),
-					"coyote",
+					"lvl1", "coyote"
 				],
 				",": () => [
 					sprite("bg"),
@@ -200,7 +209,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					anchor("bot"),
 					z(10),
 					stay(),
-					"player",
+					"player", 
 				],
 				"=": () => [
 					sprite("ground"),
@@ -221,21 +230,21 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					area(),
 					anchor("bot"),
 					z(2),
-					"fire"
+					"lvl1", "fire"
 				],
 				"*": () => [
 					sprite('greeter'),
 					area(),
 					stay(),
 					anchor("bot"),
-					'greeter',
+					'greeter', "lvl1"
 				],
 				"c": () => [
 					sprite('chief'),
 					area(),
 					stay(),
 					anchor("bot"),
-					'chief',
+					'chief', 
 				],
 				"^": () => [
 					sprite('hunter'),
@@ -243,45 +252,52 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					stay(),
 					anchor("bot"),
 					scale(0.45),
-					'hunter',
+					'hunter', "lvl1"
 				],
 				"w": () =>[
 					sprite('weaver'),
 					area(),
 					anchor("bot"),
-					"weaver"
+					"weaver", "lvl1"
 				],
 				"g": () =>[
 					sprite('gatherer'),
 					area(),
 					anchor("bot"),
-					"gatherer"
+					"gatherer", "lvl1"
 				],
 				">": () =>[
 					sprite('fisher'),
 					area(),
 					anchor("bot"),
-					"fisher"
+					"fisher", "lvl1"
 				],
 				"b": () =>[
 					sprite('builder'),
 					area(),
 					anchor("bot"),
 					scale(2.3),
-					"builder"
+					"builder", "lvl1"
 				],
 				"{": () =>[
 					sprite('deer'),
 					area(),
 					anchor("bot"),
-					"deer"
+					"deer", "lvl1"
 				],
 				"n": () =>[
 					sprite('net'),
 					area(),
 					anchor("bot"),
-					"net"
-				]
+					"net", "lvl1"
+				],
+				"d": () =>[
+					rect(40, 60),
+					outline(4),
+					anchor("bot"),
+					area(),
+					"door", "lvl1"
+				],
 			}
 		})
 
@@ -298,6 +314,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		const builder = level.get("builder")[0]
 		const fire = level.get("fire")
 		const net = level.get("net")[0]
+		const door = level.get("door")[0]
 		const backpack = add([
 			sprite('backpack'),
 			pos(925, 25),
@@ -325,18 +342,21 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		])
 
 		
-		coyote.play('idle')
-		deer.play('idle')
-		greeter.play('idle')
-		chief.play('idle')
-		builder.play('idle')
+		// coyote.play('idle')
+		// deer.play('idle')
+		// greeter.play('idle')
+		// chief.play('idle')     can't animate things that are not in level or loaded
+		// builder.play('idle')
 		player.play('idle')
 
 		// needed to get all fire sprites to play animation
 		for(let i=0; i<fire.length; i++) {
 			fire[i].play('flames')
 		} 
-		
+
+		const lvl1 = level.get("lvl1")[0]
+		console.log(lvl1)
+
 
 		// creating arrays for npcs as consts and strings
 		// consts are for updating sprite properties while strings are for function inputs
@@ -348,6 +368,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		// arrays for npc quests that are completed by interacting with other npcs
 		const npcRequests = [weaver, gatherer, fisher];
 		const npcRequestsString = ["weaver", "gatherer", "fisher"]
+
 
 		// assigning properties to all sprties
 		function dialogStatus(sprite) {
@@ -370,6 +391,32 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		for(let i=0;i<items.length;i++) {
 			itemStatus(items[i])
 		}
+
+
+
+
+		// ----- LEVEL 2 ------
+
+		player.onCollide("door", () => {
+			if (hunter.requestComplete === true) {
+				 onKeyPress("space", ()=> {
+					console.log('level 2')
+					
+					for(let i=0; i<lvl1.length; i++) {
+						lvl1[i].opacity(0)
+					}
+
+					go("game", {
+						
+						levelIdx: 1,
+
+					})
+
+					
+				 })
+			}}
+		)
+
 
 		
 		let textboxColor = [255,255,255]; // default textbox color to white
@@ -437,13 +484,13 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		onKeyDown("left", () => {
 			player.flipX = true
-			player.move(-SPEED, 0)
+			player.move(-speed, 0)
 			
 		})
 
 		onKeyDown("right", () => {
 			player.flipX = false
-			player.move(SPEED, 0)
+			player.move(speed, 0)
 		})
 
 		// camera positioning follows player
@@ -522,7 +569,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 				
 			}
 		}
-
 
 		// creates sprite text and textboxs
 		function addText(dialog) {
@@ -672,11 +718,12 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 	function start() {
 		// Start with the "game" scene, with initial parameters
-		go("game")
+		go("game", {
+			levelIdx: 0,
+		})
 	}
 
 	
-
 	start()
 
 
