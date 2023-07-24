@@ -37,6 +37,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 	// load background and images
 	loadSprite('bg','images/bg.png')
+	loadSprite('houseBg','images/houseBg.png')
 	loadSprite('ground', 'images/tile.png')
 	loadSprite('water', 'images/water.png')
 	loadSprite('net', 'images/net.png')
@@ -149,13 +150,13 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		[	
 			"                                                                                                   ",
 			"                                                 ,                                                 ",
-			"  @      *                 ^  {   b d         w          n   <          g  fffff         >         ",
+			"  @   d   *                 ^  {   b          w          n   <          g  fffff         >         ",
 			"==========================================================================================~~~~~~~~~",
 		],
 		[
-			"                                                                                                  ",
-			"                                                                                                  ",
-			"  @                    c                                                              *^{bdw'n<gf>",
+			"                                                                                                   ",
+			"                      2                                                                            ",
+			"  d    @                c                                                               *^{bdw'n<gf>",
 			"================================================================================================"
 		]
 	]
@@ -192,6 +193,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					sprite("coyote"),
 					anchor("bot"),
 					area(),
+					offscreen({ hide: true }),
 					"lvl1", "coyote"
 				],
 				",": () => [
@@ -200,7 +202,16 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					z(-1),
 					pos(0, 50),
 					scale(2.6),
+					// offscreen({ hide: true }),
 					"bg1",
+				],
+				"2": () => [
+					sprite("houseBg"),
+					anchor("bot"),
+					z(-1),
+					pos(-5, 60),
+					scale(1.3),
+					"bg2",
 				],
 				"@": () => [
 					sprite("player"),
@@ -216,6 +227,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					area(),
 					body({ isStatic: true }),
 					anchor("bot"),
+					offscreen({ hide: true }),
 					z(2)
 				],
 				"~": () => [
@@ -223,6 +235,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					area(),
 					body({ isStatic: true }),
 					anchor("bot"),
+					offscreen({ hide: true }),
 					z(2)
 				],
 				"f": () => [
@@ -230,6 +243,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					area(),
 					anchor("bot"),
 					z(2),
+					offscreen({ hide: true }),
 					"lvl1", "fire"
 				],
 				"*": () => [
@@ -237,6 +251,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					area(),
 					stay(),
 					anchor("bot"),
+					offscreen({ hide: true }),
 					'greeter', "lvl1"
 				],
 				"c": () => [
@@ -244,6 +259,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					area(),
 					stay(),
 					anchor("bot"),
+					offscreen({ hide: true }),
 					'chief', 
 				],
 				"^": () => [
@@ -252,24 +268,28 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					stay(),
 					anchor("bot"),
 					scale(0.45),
+					offscreen({ hide: true }),
 					'hunter', "lvl1"
 				],
 				"w": () =>[
 					sprite('weaver'),
 					area(),
 					anchor("bot"),
+					offscreen({ hide: true }),
 					"weaver", "lvl1"
 				],
 				"g": () =>[
 					sprite('gatherer'),
 					area(),
 					anchor("bot"),
+					offscreen({ hide: true }),
 					"gatherer", "lvl1"
 				],
 				">": () =>[
 					sprite('fisher'),
 					area(),
 					anchor("bot"),
+					offscreen({ hide: true }),
 					"fisher", "lvl1"
 				],
 				"b": () =>[
@@ -277,18 +297,21 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					area(),
 					anchor("bot"),
 					scale(2.3),
+					offscreen({ hide: true }),
 					"builder", "lvl1"
 				],
 				"{": () =>[
 					sprite('deer'),
 					area(),
 					anchor("bot"),
+					offscreen({ hide: true }),
 					"deer", "lvl1"
 				],
 				"n": () =>[
 					sprite('net'),
 					area(),
 					anchor("bot"),
+					offscreen({ hide: true }),
 					"net", "lvl1"
 				],
 				"d": () =>[
@@ -296,12 +319,14 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					outline(4),
 					anchor("bot"),
 					area(),
+					offscreen({ hide: true }),
 					"door", "lvl1"
 				],
 			}
 		})
 
 		// Get the player object from tag
+		const bg = level.get("bg")[0]
 		const player = level.get("player")[0]
 		const greeter = level.get("greeter")[0]
 		const chief = level.get("chief")[0]
@@ -342,11 +367,11 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		])
 
 		
-		// coyote.play('idle')
-		// deer.play('idle')
-		// greeter.play('idle')
+		coyote.play('idle')
+		deer.play('idle')
+		greeter.play('idle')
 		// chief.play('idle')     can't animate things that are not in level or loaded
-		// builder.play('idle')
+		builder.play('idle')
 		player.play('idle')
 
 		// needed to get all fire sprites to play animation
@@ -397,26 +422,52 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		// ----- LEVEL 2 ------
 
-		player.onCollide("door", () => {
-			if (hunter.requestComplete === true) {
-				 onKeyPress("space", ()=> {
-					console.log('level 2')
-					
-					for(let i=0; i<lvl1.length; i++) {
-						lvl1[i].opacity(0)
+
+		player.onCollideUpdate("door", () => {
+
+			const doorPrompt = add([
+				pos(door.pos.x, 400),
+				anchor("center"),
+				text(`[test]Press spacebar to enter[/test]`, {
+					size: 18,
+					width: 300, // it'll wrap to next line when width exceeds this value
+					lineSpacing: 6,
+					letterSpacing: -1,
+					font: "apl386",
+
+					styles: {
+						"test": {
+							color: rgb(0, 0, 0)
+						}	
 					}
+				}),
+				fixed()
+			])
 
-					go("game", {
+			wait(0.1, () => {
+				destroy(doorPrompt)
+			})
+
+			if (isKeyPressed("space")) {
+				if (levelIdx === 0) {
+
+						setBackground(211, 177, 89)
+
+						go("game", {
+							levelIdx: 1,
+						})
+				} else if (levelIdx === 1) {
+					setBackground(243, 251, 255)
+
+						go("game", {
+							levelIdx: 0,
+						})
+				}
+				
+				}
 						
-						levelIdx: 1,
 
-					})
-
-					
-				 })
-			}}
-		)
-
+			})
 
 		
 		let textboxColor = [255,255,255]; // default textbox color to white
@@ -496,9 +547,13 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		// camera positioning follows player
 		player.onUpdate(() => {
 			let currCam = camPos();
-			if ( currCam.x < player.pos.x && player.pos.x <= 4600) {
+			if (levelIdx === 0 && currCam.x < player.pos.x && player.pos.x <= 4600) {
 				camPos(player.pos.x, currCam.y);
-			} else if (currCam.x > player.pos.x && player.pos.x >= 500) {
+			} else if (levelIdx === 1 && currCam.x < player.pos.x && player.pos.x <= 1880) {
+				camPos(player.pos.x, currCam.y);
+
+			}
+			else if (currCam.x > player.pos.x && player.pos.x >= 500) {
 				camPos(player.pos.x, currCam.y)
 			} 
 		})
