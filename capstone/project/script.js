@@ -41,6 +41,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	loadSprite('ground', 'images/tile.png')
 	loadSprite('water', 'images/water.png')
 	loadSprite('net', 'images/net.png')
+	loadSprite('redbud', 'images/redbud.png')
 	loadSprite('backpack', 'images/backpack.png', {sliceX: 2})
 
 	// load npc sprites
@@ -50,17 +51,8 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	loadSprite('fisher', 'images/fisher.png')
 
 	// load sprite animations
-	loadSprite('fire', 'images/fire.png', {
-		sliceX: 3,
-		
-		anims: {
-			"flames": {
-				from: 0,
-				to: 2,
-				speed: 7,
-				loop: true,
-			}
-		}
+	loadSprite('rye', 'images/rye.png', {
+
 	})
 	loadSprite('deer', 'images/deer.png', {
 		sliceX: 4,
@@ -150,13 +142,13 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		[	
 			"                                                                                                   ",
 			"                                                 ,                                                 ",
-			"  @   d   *                 ^  {   b          w          n   <          g  fffff         >         ",
+			"  @   d   *                 ^  {   b          w          n   <          g  rrffrff         >         ",
 			"==========================================================================================~~~~~~~~~",
 		],
 		[
 			"                                                                                                   ",
 			"                      2                                                                            ",
-			"  d    @                c                                                               *^{bdw'n<gf>",
+			"  d  @                   c                                                               *^{bdw'n<gf>",
 			"================================================================================================"
 		]
 	]
@@ -209,8 +201,8 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					sprite("houseBg"),
 					anchor("bot"),
 					z(-1),
-					pos(-5, 60),
-					scale(1.3),
+					pos(-300, 50),
+					scale(1.1),
 					"bg2",
 				],
 				"@": () => [
@@ -239,12 +231,22 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					z(2)
 				],
 				"f": () => [
-					sprite("fire"),
+					sprite("rye"),
 					area(),
 					anchor("bot"),
+					scale(0.6),
 					z(2),
 					offscreen({ hide: true }),
-					"lvl1", "fire"
+					"lvl1", "rye"
+				],
+				"r": () => [
+					sprite("redbud"),
+					area(),
+					anchor("bot"),
+					scale(1.2),
+					z(2),
+					offscreen({ hide: true }),
+					"lvl1", "redbud"
 				],
 				"*": () => [
 					sprite('greeter'),
@@ -267,7 +269,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					area(),
 					stay(),
 					anchor("bot"),
-					scale(0.45),
+					scale(1.7),
 					offscreen({ hide: true }),
 					'hunter', "lvl1"
 				],
@@ -337,7 +339,8 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		const gatherer = level.get("gatherer")[0]
 		const fisher = level.get("fisher")[0]
 		const builder = level.get("builder")[0]
-		const fire = level.get("fire")
+		const rye = level.get("rye")
+		const redbud = level.get("redbud")
 		const net = level.get("net")[0]
 		const door = level.get("door")[0]
 		const backpack = add([
@@ -375,9 +378,9 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		player.play('idle')
 
 		// needed to get all fire sprites to play animation
-		for(let i=0; i<fire.length; i++) {
-			fire[i].play('flames')
-		} 
+		// for(let i=0; i<fire.length; i++) {
+		// 	fire[i].play('flames')
+		// } 
 
 		const lvl1 = level.get("lvl1")[0]
 		console.log(lvl1)
@@ -549,9 +552,10 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			let currCam = camPos();
 			if (levelIdx === 0 && currCam.x < player.pos.x && player.pos.x <= 4600) {
 				camPos(player.pos.x, currCam.y);
-			} else if (levelIdx === 1 && currCam.x < player.pos.x && player.pos.x <= 1880) {
+				// camera movement for outside
+			} else if (levelIdx === 1 && currCam.x < player.pos.x && player.pos.x <= 1280) {
 				camPos(player.pos.x, currCam.y);
-
+				// camera movement for inside house
 			}
 			else if (currCam.x > player.pos.x && player.pos.x >= 500) {
 				camPos(player.pos.x, currCam.y)
@@ -755,6 +759,8 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		function updateInterface(item, data) {
 			document.querySelector('#itemName').innerHTML = `${data[item].item}`;
 			document.querySelector('#itemDescrip').innerHTML = `${data[item].info}`
+
+			document.querySelector(`${item}`).style.background
 		}
 
 

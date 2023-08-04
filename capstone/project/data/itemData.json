@@ -1,21 +1,16 @@
 {
     "deer" : {
         "item" : "Deer",
-        "info" : "deer popular",
+        "info" : "Deer was one of the main prey the Patwin people hunted for food. Hunters worked in groups small groups to catch them. One hunter would wear a deer head to get closer to the deer without alarming it. Dried deer was also ground into flour. /n Deerskin was used for skirts as well.",
         "image" : "images/deer.png"
     },
     "rye" : {
-        "opener" : "Ugh, I’m so close to finishing this basket but I’m almost out of blue rye fibers!",
-        "request" : "Please find some for me so I can finish this faster. I will trade you with something really cool!",
-        "closer" : "The object? I heard it was made of a rare rock, something I’ve never seen before. The color looks a bit like wood or acorn…",
-        "seal" : "Oh the cool thing? Well, I heard the chief found something in the forest earlier today. No one knows what it is but it is quite shiny. It looks like a small part of something bigger.",
-        "item" : "rye"
+        "item" : "Rye",
+        "info" : "Blue rye was used to make baskets and for consumption. They were also a good crop for the Patwins since they gathered fewer pests, like grasshoppers. Blue rye was one of the crops that grew better from the fire management."
     },
     "shells" : {
-        "opener" : "Oh hey, no need to panic! These fires are 100% controlled. We’re just burning the land so new shoots grow and lure in game.",
-        "request" : "You’re looking for some blue rye? You’re in luck! We just harvested this today. I’ll trade it for some clam shells.",
-        "closer" : "Ooh I can’t believe you got 5 clam shells that quickly, impressive! Here’s the rye fibers, as promised.",
-        "item" : "shells"
+        "item" : "Shells",
+        "info" : "Clam shells were used to trade items between the Patwin people. Whole clam disks were sometimes made into beads and strung to a string of 80 beads."
     },
     "net" : {
         "opener" : "Man, fishing sure is hard. I’m not used to this bone harpoon. Maybe a net would work better? I saw some back in the village.",

@@ -14,8 +14,8 @@
         "item" : "rye"
     },
     "gatherer" : {
-        "opener" : "Oh hey, no need to panic! These fires are 100% controlled. We’re just burning the land so new shoots grow and lure in game.",
-        "request" : "You’re looking for some blue rye? You’re in luck! We just harvested this today. I’ll trade it for some clam shells.",
+        "opener" : "Oh hey, don't trample the redbud and blue rye crops! I'm just about to harvest them.",
+        "request" : "You’re looking for some blue rye? You’re in luck! We harvested some earlier. I’ll trade it for some clam shells.",
         "closer" : "I can’t believe you got 5 clam shells that quickly, impressive! Here’s the rye fibers, as promised.",
         "seal" : "I'm not sure what a seal is but I heard it was hard enough to smash open clams.",
         "item" : "shells"
@@ -29,6 +29,13 @@
     },
     "builder" : {
         "opener" : "Oh this? This is the village dance house! We are about to have our annual Kuksa to bring good health and bountiful hunt to our village.",
+        "request" : "Would you please find me some more oak and grapevines? I need a few more supports.",
+        "closer" : "Amazing, thank you! We can definitely finish this by sundown.",
+        "seal" : "The chief? He’s inside here. I saw him holding something earlier. Could it be an offering from the earth itself bringing wealth to our village?",
+        "item" : "vines"
+    },
+    "chief" : {
+        "opener" : "Welcome to my home! I was just taking a rest.",
         "request" : "Would you please find me some more oak and grapevines? I need a few more supports.",
         "closer" : "Amazing, thank you! We can definitely finish this by sundown.",
         "seal" : "The chief? He’s inside here. I saw him holding something earlier. Could it be an offering from the earth itself bringing wealth to our village?",

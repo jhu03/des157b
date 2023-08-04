@@ -88,7 +88,7 @@ button:hover {
     background-color: antiquewhite;
 
     display: grid;
-    grid-template-columns: 1fr 0.5fr 1fr;
+    grid-template-columns: 0.25fr 1fr;
     gap: 15px;
     justify-items: center;
 
@@ -100,6 +100,12 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+
+    background-color: salmon;
+}
+
+#inventory h2 {
+    padding-top: 15px;
 }
 
 #itemList button {
