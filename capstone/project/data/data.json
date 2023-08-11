@@ -28,15 +28,8 @@
         "item" : "net"
     },
     "builder" : {
-        "opener" : "Oh this? This is the village dance house! We are about to have our annual Kuksa to bring good health and bountiful hunt to our village.",
-        "request" : "Would you please find me some more oak and grapevines? I need a few more supports.",
-        "closer" : "Amazing, thank you! We can definitely finish this by sundown.",
-        "seal" : "The chief? He’s inside here. I saw him holding something earlier. Could it be an offering from the earth itself bringing wealth to our village?",
-        "item" : "vines"
-    },
-    "chief" : {
-        "opener" : "Welcome to my home! I was just taking a rest.",
-        "request" : "Would you please find me some more oak and grapevines? I need a few more supports.",
+        "opener" : "Oh this? This is a dome house! We live in dome huts made of earth and willow branches. You'll be surprised at how spacious it is inside",
+        "request" : "Would you please find me some more branches and grapevines? I need a few more supports.",
         "closer" : "Amazing, thank you! We can definitely finish this by sundown.",
         "seal" : "The chief? He’s inside here. I saw him holding something earlier. Could it be an offering from the earth itself bringing wealth to our village?",
         "item" : "vines"

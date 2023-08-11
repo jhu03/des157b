@@ -1,27 +1,27 @@
 {
-    "deer" : {
+    "Deer" : {
         "item" : "Deer",
-        "info" : "Deer was one of the main prey the Patwin people hunted for food. Hunters worked in groups small groups to catch them. One hunter would wear a deer head to get closer to the deer without alarming it. Dried deer was also ground into flour. /n Deerskin was used for skirts as well.",
-        "image" : "images/deer.png"
+        "info" : "There were many methods to hunt deer that were specific to village regions. In one type of hunting, a hunter wears a deer head to get closer to the deer without alarming it. Deer was cooked and eaten fresh after a hunt or dried to make deer jerky, a common trade item. <br> <br> Deer were also used in ceremonial dances.",
+        "image" : "images/deerPic.gif"
     },
-    "rye" : {
+    "Rye" : {
         "item" : "Rye",
-        "info" : "Blue rye was used to make baskets and for consumption. They were also a good crop for the Patwins since they gathered fewer pests, like grasshoppers. Blue rye was one of the crops that grew better from the fire management."
+        "info" : "Blue rye was once used to make baskets, and its seeds were harvested for consumption. They were also a good crop for the Patwins since they attracted fewer pests, like grasshoppers.",
+        "image" : "images/ryePic.png"
     },
-    "shells" : {
+    "Shells" : {
         "item" : "Shells",
-        "info" : "Clam shells were used to trade items between the Patwin people. Whole clam disks were sometimes made into beads and strung to a string of 80 beads."
+        "info" : "In the Patwin language, ‘ka*doi’ means clam shells or money. The coastal Pomo people traded clam shell disks with the Patwin for goods such as deer jerky. Whole clam shells were fashioned into beads and strung into a necklace of 80 to 100 beads.",
+        "image" : "images/shellPic.png"
     },
-    "net" : {
-        "opener" : "Man, fishing sure is hard. I’m not used to this bone harpoon. Maybe a net would work better? I saw some back in the village.",
-        "request" : "Thanks for the help! I surely can catch some salmon now. Here, take some clam shells as my token of gratitude.",
-        "closer" : "The object? I heard it was made of a rare rock, something I’ve never seen before. The color looks a bit like wood or acorn…",
-        "item" : "net"
+    "Net" : {
+        "item" : "Net",
+        "info" : "Nets were a common hunting tool for many Californian people. They were used to catch small fish and birds, like ducks, water fowls, and geese. Hunters made bird decoys out of tule and placed them on the water to attract water birds before casting a weighted net over them. <br><br> Nets were made of cord or string fibers from wild hemp or milkweed plants. Stronger nets made of doulas iris and human hair can even catch deer and pronghorns!",
+        "image" : "images/netPic.gif"
     },
-    "vines" : {
-        "opener" : "Oh this? This is the village dance house! We are about to have our annual Kuksa to bring good health and bountiful hunt to our village.",
-        "request" : "Would you please find me some more oak and grapevines? I need a few more supports.",
-        "closer" : "Amazing, thank you! We can definitely finish this by sundown. The chief? He’s inside here. I saw him holding something earlier. Could it be an offering from the earth itself bringing wealth to our village?",
-        "item" : "vines"
+    "Vines" : {
+        "item" : "Grapevines",
+        "info" : "Grapevines were used as rope to tie things together, like willow branches. Their strength and flexibility makes grapevines great for binding dome houses, granaries, and more.",
+        "image" : "images/vinePic.png"
     }
 }

@@ -15,12 +15,21 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	});
 
 
-
 	const missionBtn = document.querySelector('#mission');
 	const overlayBg = document.querySelector('#overlayBg')
 	missionBtn.addEventListener('click', function() {
 		document.querySelector('#overlay').style.display = 'none';
+
+		document.querySelector('#instructions').className = '';
+	
+		document.querySelector('#canvas').focus();
+	})
+
+	const startBtn = document.querySelector('#start');
+	startBtn.addEventListener('click', function() {
+		document.querySelector('#instructions').style.display = 'none';
 		overlayBg.style.display = 'none'
+
 		document.querySelector('#canvas').focus();
 	})
 
@@ -42,6 +51,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	loadSprite('water', 'images/water.png')
 	loadSprite('net', 'images/net.png')
 	loadSprite('redbud', 'images/redbud.png')
+	loadSprite('triBasket', 'images/triBasket.png')
 	loadSprite('backpack', 'images/backpack.png', {sliceX: 2})
 
 	// load npc sprites
@@ -114,20 +124,20 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			}
 		},
 	})
-	loadSprite("player", "images/bro.png", {
+	loadSprite("player", "images/player.png", {
 		sliceX: 8,
 
 		anims: {
 			"idle": {
 				from: 0,
-				to: 2,
-				speed: 5,
+				to: 1,
+				speed: 3,
 				loop: true,
 			},
 			"run": {
-				from: 3,
+				from: 2,
 				to: 7,
-				speed: 10,
+				speed: 5,
 				loop: true,
 			}, 
 			"jump": 2
@@ -140,16 +150,16 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 	const levelSelect = [
 		[	
-			"                                                                                                   ",
-			"                                                 ,                                                 ",
-			"  @   d   *                 ^  {   b          w          n   <          g  rrffrff         >         ",
-			"==========================================================================================~~~~~~~~~",
+			"                                                                                                          ",
+			"   @                                              ,                                                        ",
+			"     d   *                 ^  {   b  t        w     t     n   <         t g  rrffrff         >          c",
+			"=================================================================================================~~~~~~~~~",
 		],
 		[
-			"                                                                                                   ",
-			"                      2                                                                            ",
-			"  d  @                   c                                                               *^{bdw'n<gf>",
-			"================================================================================================"
+			"                                                               ",
+			"     @               2                                          ",
+			"  d                     c                        *^{bdw'n<gf>",
+			"==============================================================="
 		]
 	]
 
@@ -170,6 +180,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			globalDataItems = dataItems;
 
 			createButtons(dataItems);
+			console.log('creating buttons')
 		}
 
 		// jump characteristics
@@ -194,7 +205,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					z(-1),
 					pos(0, 50),
 					scale(2.6),
-					// offscreen({ hide: true }),
 					"bg1",
 				],
 				"2": () => [
@@ -234,7 +244,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					sprite("rye"),
 					area(),
 					anchor("bot"),
-					scale(0.6),
+					scale(1),
 					z(2),
 					offscreen({ hide: true }),
 					"lvl1", "rye"
@@ -272,6 +282,14 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					scale(1.7),
 					offscreen({ hide: true }),
 					'hunter', "lvl1"
+				],
+				"t": () =>[
+					sprite('triBasket'),
+					area(),
+					anchor("bot"),
+					scale(0.8),
+					offscreen({ hide: true }),
+					"triBasket", "lvl1"
 				],
 				"w": () =>[
 					sprite('weaver'),
@@ -336,6 +354,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		const coyote = level.get("coyote")[0]
 		const hunter = level.get("hunter")[0]
 		const weaver = level.get("weaver")[0]
+		const triBasket = level.get("triBasket")[0]
 		const gatherer = level.get("gatherer")[0]
 		const fisher = level.get("fisher")[0]
 		const builder = level.get("builder")[0]
@@ -373,7 +392,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		coyote.play('idle')
 		deer.play('idle')
 		greeter.play('idle')
-		// chief.play('idle')     can't animate things that are not in level or loaded
+		chief.play('idle')    
 		builder.play('idle')
 		player.play('idle')
 
@@ -466,10 +485,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 							levelIdx: 0,
 						})
 				}
-				
 				}
-						
-
 			})
 
 		
@@ -540,17 +556,33 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			player.flipX = true
 			player.move(-speed, 0)
 			
+			if (player.isGrounded() && player.curAnim() !== "run") {
+				player.play("run")
+			}
 		})
 
 		onKeyDown("right", () => {
 			player.flipX = false
 			player.move(speed, 0)
+
+			if (player.isGrounded() && player.curAnim() !== "run") {
+				player.play("run")
+			}
+		})
+
+		;["left", "right"].forEach((key) => {
+			onKeyRelease(key, () => {
+			// Only reset to "idle" if player is not holding any of these keys
+				if (player.isGrounded() && !isKeyDown("left") && !isKeyDown("right")) {
+					player.play("idle")
+				}
+			})
 		})
 
 		// camera positioning follows player
 		player.onUpdate(() => {
 			let currCam = camPos();
-			if (levelIdx === 0 && currCam.x < player.pos.x && player.pos.x <= 4600) {
+			if (levelIdx === 0 && currCam.x < player.pos.x && player.pos.x <= 5000) {
 				camPos(player.pos.x, currCam.y);
 				// camera movement for outside
 			} else if (levelIdx === 1 && currCam.x < player.pos.x && player.pos.x <= 1280) {
@@ -584,14 +616,30 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		})
 
-		// player.onCollideUpdate("deer", () => {
+		const chiefDialogue = [
+			"Welcome to my home! I was just taking a rest.",
+			"I heard you've been helping the village out, and for that I am grateful.",
+			"As a reward, take this. It was brought to me this morning, but I'm not sure what it is. I want you to have it.",
+			"Oh? Leaving so soon? Well, feel free to visit and help out again any time!"
+		]
+		let chiefDialogueIndex = 0;
 
-		// 	// addText(`testing dialog ${hunter.dialog}`)
-		// 	addText("Deers are a common animal in Patwin lifestyles. Let's let the hunter know we found some.")
+		player.onCollideUpdate("chief", () => {
 
-		// 	hunter.requestComplete = true;
+			if(isKeyPressed("space") && chiefDialogueIndex < 3) {
+				chiefDialogueIndex++
+			}
 
-		// })
+			addText(`${chiefDialogue[chiefDialogueIndex]}`);
+
+			if (chiefDialogueIndex === 3) {
+				wait (3, () => {
+					document.querySelector('#seal').className = '';
+					overlayBg.style.display = 'block';
+				})
+			}
+
+		})
 
 		// controls all collisions for npc sprites
 		npcString.forEach(npc => 
@@ -605,8 +653,10 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 						npcs[npcNum].dialog = 2
 					} else if (npcs[npcNum].dialog === 2 ) {
 						npcs[npcNum].dialog = 3;
-					} else {
+					} else if (npcs[npcNum].dialog === 0) {
 						npcs[npcNum].dialog = 1
+					} else {
+						return npcs[npcNum].dialog
 					}
 				} else {
 					wait(8, () => {
@@ -712,6 +762,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		})
 
 
+
 		// ------ INVENTORY SYSTEM ----- 
 
 		// backpack openning animation
@@ -734,6 +785,9 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		// functions for changing inventory info
 		function createButtons(data) {
 			const dataPoints = Object.keys(data);
+
+			//clears button list every time inventory is open so buttons don't repeat
+			document.querySelector('#itemList div').innerHTML = ''; 
 
 			for(let i=0; i<dataPoints.length; i++){
 				const button = document.querySelector('#itemList div').innerHTML += `<button id='${dataPoints[i]}'>${dataPoints[i]}</button>`
@@ -760,7 +814,8 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			document.querySelector('#itemName').innerHTML = `${data[item].item}`;
 			document.querySelector('#itemDescrip').innerHTML = `${data[item].info}`
 
-			document.querySelector(`${item}`).style.background
+			document.querySelector('#itemImg').src = `${data[item].image}`;
+
 		}
 
 
@@ -769,6 +824,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			overlayBg.style.display = 'none'
 			inventory.className = 'hide'
 			document.querySelector('#canvas').focus();
+
 		})
 
 
