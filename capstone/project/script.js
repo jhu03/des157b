@@ -15,7 +15,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	});
 
 
-	const missionBtn = document.querySelector('#mission');
+	const missionBtn = document.querySelector('#missionBtn');
 	const overlayBg = document.querySelector('#overlayBg')
 	missionBtn.addEventListener('click', function() {
 		document.querySelector('#overlay').style.display = 'none';
@@ -52,6 +52,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	loadSprite('net', 'images/net.png')
 	loadSprite('redbud', 'images/redbud.png')
 	loadSprite('triBasket', 'images/triBasket.png')
+	loadSprite('vines', 'images/vines.png')
 	loadSprite('backpack', 'images/backpack.png', {sliceX: 2})
 
 	// load npc sprites
@@ -145,20 +146,20 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	})
 
 	// character speed
-	const speed = 400
+	const speed = 900
 
 
 	const levelSelect = [
 		[	
-			"                                                                                                          ",
-			"   @                                              ,                                                        ",
-			"     d   *                 ^  {   b  t        w     t     n   <         t g  rrffrff         >          c",
-			"=================================================================================================~~~~~~~~~",
+			"                                                                                                         ",
+			"   @                                              ,                                                      ",
+			"        *                 ^     d b  t        w   <  t   v  n    {}        t g  rrffrff         >       c",
+			"=================================================================================================~~~~~~~",
 		],
 		[
 			"                                                               ",
 			"     @               2                                          ",
-			"  d                     c                        *^{bdw'n<gf>",
+			"  d                     c                        *^{bdw'n<gf>v",
 			"==============================================================="
 		]
 	]
@@ -180,7 +181,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			globalDataItems = dataItems;
 
 			createButtons(dataItems);
-			console.log('creating buttons')
 		}
 
 		// jump characteristics
@@ -334,6 +334,13 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					offscreen({ hide: true }),
 					"net", "lvl1"
 				],
+				"v": () =>[
+					sprite('vines'),
+					area(),
+					anchor("bot"),
+					offscreen({ hide: true }),
+					"vines", "lvl1"
+				],
 				"d": () =>[
 					rect(40, 60),
 					outline(4),
@@ -341,7 +348,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					area(),
 					offscreen({ hide: true }),
 					"door", "lvl1"
-				],
+				]
 			}
 		})
 
@@ -355,6 +362,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		const hunter = level.get("hunter")[0]
 		const weaver = level.get("weaver")[0]
 		const triBasket = level.get("triBasket")[0]
+		const vines = level.get("vines")[0]
 		const gatherer = level.get("gatherer")[0]
 		const fisher = level.get("fisher")[0]
 		const builder = level.get("builder")[0]
@@ -396,21 +404,17 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		builder.play('idle')
 		player.play('idle')
 
-		// needed to get all fire sprites to play animation
-		// for(let i=0; i<fire.length; i++) {
-		// 	fire[i].play('flames')
-		// } 
-
 		const lvl1 = level.get("lvl1")[0]
-		console.log(lvl1)
 
 
 		// creating arrays for npcs as consts and strings
 		// consts are for updating sprite properties while strings are for function inputs
 		const npcs = [hunter, weaver, gatherer, fisher, builder]
 		const npcString = ["hunter", "weaver", "gatherer", "fisher", "builder"]
-		const items = [deer, coyote, net]
-		const itemString = ["deer", "coyote", "net"]
+		const items = [deer, net, redbud, coyote, vines]
+		const itemString = ["deer", "net", "redbud", "coyote", "vines"]
+
+		console.log(items)
 
 		// arrays for npc quests that are completed by interacting with other npcs
 		const npcRequests = [weaver, gatherer, fisher];
@@ -447,46 +451,45 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		player.onCollideUpdate("door", () => {
 
-			const doorPrompt = add([
-				pos(door.pos.x, 400),
-				anchor("center"),
-				text(`[test]Press spacebar to enter[/test]`, {
-					size: 18,
-					width: 300, // it'll wrap to next line when width exceeds this value
-					lineSpacing: 6,
-					letterSpacing: -1,
-					font: "apl386",
+			if (builder.dialog === 3 || levelIdx === 1) {
+				const doorPrompt = add([
+					pos(door.pos.x, 400),
+					anchor("center"),
+					text(`[test]Press spacebar to enter[/test]`, {
+						size: 18,
+						width: 300, // it'll wrap to next line when width exceeds this value
+						lineSpacing: 6,
+						letterSpacing: -1,
+						font: "apl386",
 
-					styles: {
-						"test": {
-							color: rgb(0, 0, 0)
-						}	
+						styles: {
+							"test": {
+								color: rgb(0, 0, 0)
+							}	
+						}
+					}),
+					fixed()
+				])
+
+				wait(0.1, () => {
+					destroy(doorPrompt)
+				})
+
+				if (isKeyPressed("space")) {
+					if (levelIdx === 0) {
+							setBackground(211, 177, 89)
+							go("game", {
+								levelIdx: 1,
+							})
+					} else if (levelIdx === 1) {
+						setBackground(243, 251, 255)
+							go("game", {
+								levelIdx: 0,
+							})
 					}
-				}),
-				fixed()
-			])
-
-			wait(0.1, () => {
-				destroy(doorPrompt)
-			})
-
-			if (isKeyPressed("space")) {
-				if (levelIdx === 0) {
-
-						setBackground(211, 177, 89)
-
-						go("game", {
-							levelIdx: 1,
-						})
-				} else if (levelIdx === 1) {
-					setBackground(243, 251, 255)
-
-						go("game", {
-							levelIdx: 0,
-						})
-				}
-				}
-			})
+					}
+			}
+		})
 
 		
 		let textboxColor = [255,255,255]; // default textbox color to white
@@ -510,6 +513,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 						textboxColor = [217,243,186];
 					} else if (dialogLine === 3) {
 						line = data[character].seal;
+						textboxColor = [217,243,186];
 					}
 					return line;
 				}
@@ -601,7 +605,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		player.onCollideUpdate("greeter", () => {
 
 			// addText(dialogueShow(globalDataNpc, "greeter", greeter.dialog))
-			addText("Hello, stranger. Welcome to the Patwin village of Topaidihi.")
+			addText("Hello, stranger. Welcome to our Patwin village.")
 
 			onKeyPress("space", () => {
 				player.onCollideUpdate("greeter", () => {
@@ -645,6 +649,16 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		npcString.forEach(npc => 
 			player.onCollideUpdate(`${npc}`, () => {
 				let npcNum = npcString.indexOf(npc)
+
+				// if (weaver.requestComplete === false) {
+				// 	player.onCollideUpdate('builder', () => {
+				// 		addText('I’m a bit busy right now, you can help the other villagers first.')
+				// 		builder.dialog = 0;
+				// 	})
+				// } else {
+				// 	builder.dialog = 1
+				// }
+
 				addText(dialogueShow(globalDataNpc, npc, npcs[npcNum].dialog))
 
 				// advances dialog if space is pressed
@@ -673,11 +687,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			})
 		)
 
-		if (builder.requestComplete === true) {
-			if(isKeyPressed("space")) {
-				
-			}
-		}
 
 		// creates sprite text and textboxs
 		function addText(dialog) {
@@ -778,8 +787,9 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		backpack.onClick(() => {
 			const inventory = document.querySelector('#inventory')
-			overlayBg.style.display = 'block'
-			inventory.className = 'show'
+			overlayBg.style.display = 'block';
+			inventory.className = 'show';
+			inventory.style.zIndex = "3";
 		})
 
 		// functions for changing inventory info

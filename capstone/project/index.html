@@ -24,6 +24,7 @@
 
     <title>Capstone Project</title>
 </head>
+
 <body>
 
     <canvas id="canvas">
@@ -34,51 +35,72 @@
         <p>can you find the missing seal pieces before it's too late?</p>
     </header>
 
+    <i class="fa-solid fa-info"></i>
+
     <section id="overlay">
 
-        <img src="images/agent.gif">
+        <div class="missionInfo">
+            <div class="agentInfoIntro">
+                <img src="images/agent.gif" width="100" height="100" alt="agent gif">
 
-        <h2>Mission: Seal Retrieval</h2>
-        <p>Hello Agent. The Davis seal was broken and scattered across time and space. Please find the missing piece and return it to the mayor. We’re counting on you.</p>
+                <div class="agentName">
+                    <p>Davis Seal HQ</p>
+                    <h3>Agent [REDACTED]</h3>
+                </div>
+            </div>
 
-        <p>Your first stop is a Patwin village, the land Davis used to be back in before the 1800s. Good luck, agent.</p>
+            <div class="missionInfo">
+                <h2>Mission: Seal Retrieval</h2>
+                <p>Hello Agent. The Davis seal was broken and scattered across time and space. Please find the missing piece and return it to the mayor. We’re counting on you.
 
-        <!-- <img src="images/seal.gif" width="273" height="159" alt="broken seal piece of the patwin people"> -->
+                <p>Your first stop is a Patwin village, the land Davis used to be back in before the 1800s. Good luck, agent.</p>
 
-        <img src="images/seal.gif" width="204"  height="208">
+                <button type="button" id="missionBtn"> Accept Mission</button>
+            </div>
+        </div>
 
-        <button type="button" id="mission">Accept Mission</button>
+        <img class="sealImg" src="images/seal.gif" width="380"  height="388">
+
     </section>
 
 
-    <section id="instructions">
+    <section id="instructions" class="hide">
         <h2>How to Play</h2>
         <h3>Complete quests around the village and find the missing seal piece!</h3>
 
-        <div>
-            <!-- <div id="move" class="hide">
-                <img src="images/move.gif" width="200" height="350" alt="gif of player moving">
-                <p>Use arrow keys to move.</p>
-            </div> -->
-            
-            <div id="quest">
-                <img src="images/quest.gif" width="266" height="350" alt="gif of player interactions">
-
-                <div  id="instructionsContent">
-                    <p>Press space to interact with villagers and items.</p>
-                    <p>Different colors mean different interactions!</p>
-                    <p>White is a greeting</p>
-                    <p>Blue is a quest in progress</p>
-                    <p>Green is a completed quest</p>
-
+        <div id="instructionsContent">
+            <div id="move">
+                <div>
+                    <img src="images/arrows.gif" width="150" height="100" alt="gif of player moving">
+                    <p>Use arrow keys to move.</p>
                 </div>
+                
 
+                <img src="images/space.gif" width="244" height="56" alt="gif of player interactions">                
+                <p>Press <span id="space">space</span> to interact with <br> villagers and items.</p>
+                
             </div>
             
-            <button type="button" id="start">Start</button>
+            <div id="quest">
+                    <p>As you talk to different villagers, their dialog may appear in different colors.</p>
+
+                <div  id="questInfo">
+
+                    
+                    <img src="images/white.png" width="147" height="67" alt="white dialog box example">
+                    <p><span id="white">White</span> is a greeting</p>
+
+                    <img src="images/blue.png" width="147" height="67" alt="blue dialog box example">
+                    <p><span id="blue">Blue</span> is a quest in progress</p>
+
+                    <img src="images/green.png" width="147" height="67" alt="green dialog box example">
+                    <p><span id="green">Green</span> is a completed quest</p>
+                </div>
+            </div>
             
         </div>
         
+        <button type="button" id="start">Start</button>
     </section>
 
 
@@ -91,37 +113,43 @@
         </div>
 
         <div id="itemContent">
-            <h2 id="itemName">Item</h2>
+            <img id="itemImg" src="images/placeholderPic.png" width="200" height="350">
+            
             <div>
-                <img id="itemImg" src="" width="200" height="350">
+                <h2 id="itemName">Item</h2>
                 <p id="itemDescrip">Please select an item.</p>
             </div>
+            
         </div>
+
 
     </section>
 
 
     <section id="seal" class="hide">
 
-        <img id="agentPic"src="images/agent.gif" width="100" height="100" alt="agent gif">
+        <div class="missionInfo">
+            <div class="agentInfoIntro">
+                <img src="images/agent.gif" width="100" height="100" alt="agent gif">
 
-        <div id="agentName">
-            <p>Davis Seal HQ</p>
-            <h3>Agent [REDACTED]</h3>
-        </div>
+                <div class="agentName">
+                    <p>Davis Seal HQ</p>
+                    <h3>Agent [REDACTED]</h3>
+                </div>
+            </div>
 
-        <div id="endText">
-            <h2>Congrats, Agent</h2>
+            <div class="endText">
+                <h2>Congrats, Agent</h2>
 
-            <p>You foumd the missing seal piece! Thanks for your help, now the seal can be fully restored. <br> Great work, agent. We will reach out with your next mission soon. Until then, you're dismissed.</p>
-
+                <p>You foumd the missing piece! With your help, the seal can be now be fully restored.</p> 
                 
-            <button type="button" id="end">Complete Mission</button>
+                <p>Great work, agent. We will reach out with your next mission soon. Until then, you're dismissed. Signing off.</p>
+
+                <button type="button" id="endBtn">Complete Mission</button>
+            </div>
         </div>
 
-        <img id="endSeal" src="images/seal.png" width="208" height="156">
-        
-       
+        <img class="sealImg" src="images/seal.png" width="400" height="300" alt="missing seal piece">
 
     </section>
     

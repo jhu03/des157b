@@ -10,7 +10,7 @@
         "opener" : "Ugh, I’m so close to finishing this basket but I’m almost out of blue rye fibers!",
         "request" : "Please find some for me so I can finish this faster. I will trade you with something really cool!",
         "closer" : "Oh my goodness, you’re a life saver! I can definitely finish this basket now.",
-        "seal" : "The cool thing? I heard the chief found something in the forest today. No one knows what it is but it is quite shiny. It looks like a small part of something bigger.",
+        "seal" : "The cool thing? I heard the chief found something in the forest today. No one knows what it is but it is quite shiny.",
         "item" : "rye"
     },
     "gatherer" : {
@@ -31,7 +31,7 @@
         "opener" : "Oh this? This is a dome house! We live in dome huts made of earth and willow branches. You'll be surprised at how spacious it is inside",
         "request" : "Would you please find me some more branches and grapevines? I need a few more supports.",
         "closer" : "Amazing, thank you! We can definitely finish this by sundown.",
-        "seal" : "The chief? He’s inside here. I saw him holding something earlier. Could it be an offering from the earth itself bringing wealth to our village?",
+        "seal" : "The chief? Hm, I'm not sure. Maybe you can ask the weaver where he is.",
         "item" : "vines"
     }
 }
