@@ -59,7 +59,7 @@
             </div>
         </div>
 
-        <img class="sealImg" src="images/seal.gif" width="380"  height="388">
+        <img class="sealImg" src="images/seal.gif" width="380" height="388" alt="gif of centennial seal with missing piece">
 
     </section>
 
@@ -82,25 +82,25 @@
             </div>
             
             <div id="quest">
-                    <p>As you talk to different villagers, their dialog may appear in different colors.</p>
+
+                <h3>Dialog Interactions</h3>
+                <p>Dialogs may change color during an interaction.</p>
 
                 <div  id="questInfo">
-
-                    
                     <img src="images/white.png" width="147" height="67" alt="white dialog box example">
-                    <p><span id="white">White</span> is a greeting</p>
+                    <p><span id="white">White</span> <br>greeting</p>
 
                     <img src="images/blue.png" width="147" height="67" alt="blue dialog box example">
-                    <p><span id="blue">Blue</span> is a quest in progress</p>
+                    <p><span id="blue">Blue</span> <br> Quest in progress</p>
 
                     <img src="images/green.png" width="147" height="67" alt="green dialog box example">
-                    <p><span id="green">Green</span> is a completed quest</p>
+                    <p><span id="green">Green</span> <br>Completed quest</p>
                 </div>
             </div>
             
         </div>
         
-        <button type="button" id="start">Start</button>
+        <button type="button" id="startBtn">Begin Mission</button>
     </section>
 
 
@@ -113,16 +113,14 @@
         </div>
 
         <div id="itemContent">
-            <img id="itemImg" src="images/placeholderPic.png" width="200" height="350">
+            <img id="itemImg" src="images/placeholderPic.png" width="200" height="350" alt="placeholder picture of inventory items">
             
             <div>
                 <h2 id="itemName">Item</h2>
                 <p id="itemDescrip">Please select an item.</p>
+                <p>Item Status: <span id="status">???</span></p>
             </div>
-            
         </div>
-
-
     </section>
 
 
@@ -151,6 +149,34 @@
 
         <img class="sealImg" src="images/seal.png" width="400" height="300" alt="missing seal piece">
 
+    </section>
+
+    <section id="credits" class="hide">
+
+        <h2>Mission Medals</h2>
+        <p>Thank you for playing!</p>
+
+        <div id="creditsContent">
+            <div>
+                <h3>Sources</h3>
+                <p><a href="https://susanshelton.com/Seals/Davis-Centennial-Seal">Davis Centennial Seal</a> by Susan Shelton</p>
+
+                <p><a href="https://factcards.califa.org/cai/patwin.html">Social Studies Fact Cards</a></p>
+                <p><a href="https://naturalreserves.ucdavis.edu/sites/g/files/dgvnsk1091/files/inline-files/QR_handbook_humanhistory.pdf">Human History</a> by Alyssa Nelson and Lenora Timm</p>
+                <p><a href="https://yochadehe.gov/heritage/our-story/">The Yocha Dehe Wintun Nation</a></p>
+                <p><a href="https://yochadehe.gov/heritage/our-story/">Trails, Tribelets, And Territories </a> by Evan Elliott, Adrian Alexis Praetzellis, Christopher Boutin, and M.A. Lloyd</p>
+                </div>
+
+            <div>
+                <h3>Spcial Thanks</h3>
+                <h4>Diana Almendariz</h4> 
+                <p>Cultural Practitioner of Maidu/ Wintun, <br>Hupa/ Yurok Traditions, Heritage and Experiences</p> 
+
+                <h4>Glenda Drew</h4>  
+                <p> UC Davis Design Professor </p>
+            </div>
+        </div>
+        <button type="button" id="creditsBtn">The End</button>
     </section>
     
     <div id="overlayBg"></div>
