@@ -340,3 +340,7 @@ a {
     color: chocolate;
     text-decoration: none;
 }
+
+a:hover {
+    text-decoration: underline wavy;
+}

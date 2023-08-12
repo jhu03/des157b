@@ -50,6 +50,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	const startBtn = document.querySelector('#startBtn');
 	startBtn.addEventListener('click', function() {
 		document.querySelector('#instructions').style.display = 'none';
+		document.querySelector('#seal').style.display = 'none';
 		overlayBg.style.display = 'none'
 		document.querySelector('#canvas').focus();
 	})
@@ -74,6 +75,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	loadSprite('redbud', 'images/redbud.png');
 	loadSprite('triBasket', 'images/triBasket.png');
 	loadSprite('vines', 'images/vines.png');
+	loadSprite('shells', 'images/shellPic.png');
 	loadSprite('backpack', 'images/backpack.png', {sliceX: 2});
 
 	// load npc sprites
@@ -171,10 +173,10 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	// creating levels and loading sprites into levels
 	const levelSelect = [
 		[	
-			"                                                                                                      ",
-			"   @                                             ,                                                    ",
-			"        *                 ^     d b  t      < w    n  t         {    t g  rrffrff  v       >         c",
-			"=============================================================================================~~~~~~~~~",
+			"                                                                                                       ",
+			"   @                                             ,                                                     ",
+			"        *                 ^     d b  t      < w    n  t         {     t g  rrffrff  v       >         cs",
+			"==============================================================================================~~~~~~~~~",
 		],
 		[
 			"                                                               ",
@@ -368,7 +370,15 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					area(),
 					offscreen({ hide: true }),
 					"door", "lvl1"
+				],
+				"s": () =>[
+					sprite('shells'),
+					anchor("bot"),
+					area(),
+					offscreen({ hide: true }),
+					"shells", "lvl1"
 				]
+
 			}
 		});
 
@@ -389,6 +399,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		const rye = level.get("rye");
 		const redbud = level.get("redbud");
 		const net = level.get("net")[0];
+		const shells = level.get("shells")[0];
 		const door = level.get("door")[0];
 		const backpack = add([
 			sprite('backpack'),
@@ -429,8 +440,8 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		// consts are for updating sprite properties while strings are for function inputs
 		const npcs = [hunter, weaver, gatherer, fisher, builder];
 		const npcString = ["hunter", "weaver", "gatherer", "fisher", "builder"];
-		const items = [deer, net, redbud, coyote, vines];
-		const itemString = ["deer", "net", "redbud", "coyote", "vines"];
+		const items = [deer, rye, shells, net, vines];
+		const itemString = ["deer", "rye", "shells", "net", "vines"];
 
 		// arrays for npc quests that are completed by interacting with other npcs
 		const npcRequests = [weaver, gatherer, fisher];
@@ -446,8 +457,9 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		};
 
 		// function for assigning properties to each item collection
-		function itemStatus(sprite) {
-			sprite.collected = false;
+		function itemStatus(item) {
+			item.collected = false;
+			item.collectionIdx = 0
 		};
 
 		// iterates through each array to assign all sprites the appropriate properties
@@ -541,16 +553,18 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			return textboxColor;	
 		};
 
+		
 		function itemCollection (data, itemName, spriteIndex, spriteName) {
 			const dataPoints = Object.keys(data);
 
-			let item = data[dataPoints[spriteIndex]].item
+			let item = data[dataPoints[spriteIndex]].item;
+			let itemNum = itemString.indexOf(itemName);
 
 			// 	// checking if character from json file matches sprite input
 			if (item === itemName) {
 				spriteName.requestComplete = true;
+				items[itemNum].collectionIdx = 1;
 			}
-
 
 			// pauses on gatherer and weaver quest completion to account for time to read fisher's dialog			
 			if (spriteName === fisher) {
@@ -671,14 +685,16 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			player.onCollideUpdate(`${npc}`, () => {
 				let npcNum = npcString.indexOf(npc);
 
-				// if (weaver.requestComplete === false) {
-				// 	player.onCollideUpdate('builder', () => {
-				// 		addText('I’m a bit busy right now, you can help the other villagers first.')
-				// 		builder.dialog = 0;
-				// 	})
-				// } else {
-				// 	builder.dialog = 1
-				// }
+				// builder quest can only be completed once the weaver quest is completed
+				if (weaver.requestComplete === false) {
+					player.onCollideUpdate('builder', () => {
+						addText('I’m a bit busy right now, you can help the other villagers first.')
+					})
+				} else {
+					player.onCollideUpdate('builder', () => {
+						addText(dialogueShow(globalDataNpc, npc, builder.dialog));
+					})
+				}
 
 				addText(dialogueShow(globalDataNpc, npc, npcs[npcNum].dialog));
 
@@ -702,17 +718,11 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 				// function for changing the items' collection property
 				itemString.forEach(item =>
 					player.onCollideUpdate(`${item}`, () => {
-
-						if (item.collected == true || npcs[npcNum].requestComplete === true) {
-							addItemText('Item Collected')
-							return;
-						} else if(isKeyPressed("space")) {
+						
+						if (isKeyPressed("space")) {
 							itemCollection(globalDataNpc, item, npcNum, npcs[npcNum]);
 							addItemText('Item Collected')
-							
-						} else {
-							addItemText('Press space to collect')
-						}
+						} 
 					})
 				)
 			})
@@ -757,9 +767,9 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		function addItemText(prompt) {
 			const textbox = add([
-				rect(350, 80, { radius: 10 }),
+				rect(300, 60, { radius: 10 }),
 				anchor("center"),
-				pos(575, 300),
+				pos(575, 350),
 				outline(2),
 				fixed()
 			])
@@ -780,7 +790,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 				fixed()
 			])
 
-			wait(0.1, () => {
+			wait(0.3, () => {
 				destroy(itemPrompt);
 				destroy(textbox);
 			})
@@ -828,13 +838,14 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		// functions for changing inventory info
 		function createButtons(data) {
-			const dataPoints = Object.keys(data);
+			const dataPoints = Object.values(data); // creates the text from key value so text is capitalized 
+			const dataPointsObj = Object.keys(data); // creates the id from json keys
 
 			//clears button list every time inventory is open so buttons don't repeat
 			document.querySelector('#itemList div').innerHTML = ''; 
 
 			for(let i=0; i<dataPoints.length; i++){
-				const button = document.querySelector('#itemList div').innerHTML += `<button id='${dataPoints[i]}'>${dataPoints[i]}</button>`;
+				const button = document.querySelector('#itemList div').innerHTML += `<button id='${dataPointsObj[i]}'>${dataPoints[i].item}</button>`;
 			}
 			createEvents(data);
 
@@ -856,18 +867,23 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		function updateInterface(item, data) {
 
+			let itemNum = itemString.indexOf(item);
+
 			document.querySelector('#itemName').innerHTML = `${data[item].item}`;
 			document.querySelector('#itemDescrip').innerHTML = `${data[item].info}`;
 			document.querySelector('#itemImg').src = `${data[item].image}`;
+
+			document.querySelector('#status').innerHTML = `${data[item].itemStatus[items[itemNum].collectionIdx]}`;
+
+			if (items[itemNum].collectionIdx == 1) {
+				document.querySelector('#status').style.color = 'green';
+			} else {
+				document.querySelector('#status').style.color = 'red';
+			}
 		
-			// for(let i=0; i<items.length; i++) {
-			// 	if (items[i].collected === true) {
-			// 		document.querySelector('#status').innerHTML = 'Collected';
-			// 	} else {
-			// 		document.querySelector('#status').innerHTML = 'Not Collected';
-			// 	}
-			// }
 		}
+		
+		
 
 
 		// closes overlay
