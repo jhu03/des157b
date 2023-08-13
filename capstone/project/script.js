@@ -170,7 +170,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	});
 
 	// character speed
-	const speed = 900;
+	const speed = 400;
 
 	// creating levels and loading sprites into levels
 	const levelSelect = [
@@ -268,7 +268,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					sprite("rye"),
 					area(),
 					anchor("bot"),
-					scale(1),
+					scale(0.6),
 					z(2),
 					offscreen({ hide: true }),
 					"lvl1", "rye"
@@ -699,7 +699,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		// custom collide for builder to ensure their quest is done last
 		player.onCollideUpdate('builder', () => {
-			if (fisher.requestComplete === false) {
+			if (weaver.requestComplete === false) {
 					addText('I’m a bit busy right now, you can help the other villagers first.')
 			} else {
 				addText(dialogueShow(globalDataNpc, "builder", builder.dialog));
@@ -710,7 +710,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					} else if (builder.dialog === 2 ) {
 						builder.dialog = 3;
 					} else if (builder.dialog === 0) {
-
 						wait(15, () => {
 							builder.dialog = 1;
 						})
@@ -909,8 +908,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		}
 
 		function createEvents(data) {
-			const dataPoints = Object.keys(data);
-
 			const buttons = document.querySelectorAll('#itemList button');
 
 			for (const button of buttons) {
@@ -960,13 +957,13 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 			document.querySelector('#credits').classList.remove('hide');
 			document.querySelector('#credits').style.display = 'grid';
+			document.querySelector('#credits').style.zIndex = '6';
 		})
 
 		const creditsBtn = document.querySelector('#creditsBtn');
 		creditsBtn.addEventListener('click', function() {
-			overlayBg.className = 'hide';
+			overlayBg.style.display = 'none';
 			document.querySelector('#credits').style.display = 'none';
-			document.querySelector('#credits').style.zIndex = '6';
 
 			document.querySelector('#canvas').focus();
 		})

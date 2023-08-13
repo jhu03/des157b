@@ -325,8 +325,6 @@ button:hover {
     grid-template-rows: auto auto auto 0.25fr;
     column-gap: 30px;
 
-
-    /* text-align: left; */
     padding: 0px 15px;
 }
 
@@ -348,10 +346,7 @@ button:hover {
 }
 
 #endBtn {
-    grid-column: 1 /  2;
-
-    align-items: center;
-    text-align: center;
+    z-index: 5;
 }
 
 a {

@@ -22,14 +22,14 @@
     },
     "fisher" : {
         "opener" : "Man, fishing sure is hard. I’m not used to this bone harpoon.",
-        "request" : "Maybe a net would work better? I saw some back in the village.",
-        "closer" : "Thanks for the help! I definitely can catch some ducks now. Here, take some clam shells as my token of gratitude.",
+        "request" : "Maybe a net would work better? I saw some back in the village. I'll give you clam shells in exhange.",
+        "closer" : "Thanks for the help! I definitely can catch some ducks now. Here, take these shells as my token of gratitude.",
         "seal" : "The object? I heard it was a rare rock, something I’ve never seen before. The color looks a bit like wood or acorn…",
         "item" : "net"
     },
     "builder" : {
         "opener" : "Oh this? This is a dome house! We live in dome house made of earth and willow branches. You'll be surprised at how spacious it is inside.",
-        "request" : "Would you please find me some more willow branches and grapevines? I need a few more supports for this dome earth house.",
+        "request" : "Great, you're here! Can you find me some more willow branches and grapevines? I need a few more supports for this dome house.",
         "closer" : "Amazing, thank you! We can definitely finish this by sundown.",
         "seal" : "The chief? Oh, he's in this dome! You should ask him about that mysterious piece.",
         "item" : "vines"
