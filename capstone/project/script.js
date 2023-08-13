@@ -43,7 +43,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	const overlayBg = document.querySelector('#overlayBg')
 	missionBtn.addEventListener('click', function() {
 		document.querySelector('#overlay').style.display = 'none';
-		document.querySelector('#instructions').className = '';
+		document.querySelector('#instructions').classList.remove('hide');
 		document.querySelector('#canvas').focus();
 	})
 
@@ -76,6 +76,8 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	loadSprite('triBasket', 'images/triBasket.png');
 	loadSprite('vines', 'images/vines.png');
 	loadSprite('shells', 'images/shellPic.png');
+	loadSprite('door', 'images/door.png');
+	loadSprite('doorOut', 'images/doorOut.png');
 	loadSprite('backpack', 'images/backpack.png', {sliceX: 2});
 
 	// load npc sprites
@@ -173,15 +175,15 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	// creating levels and loading sprites into levels
 	const levelSelect = [
 		[	
-			"                                                                                                       ",
-			"   @                                             ,                                                     ",
+			"                                                                                                        ",
+			"   @                                             ,                                                      ",
 			"        *                 ^     d b  t      < w    n  t         {     t g  rrffrff  v       >         cs",
-			"==============================================================================================~~~~~~~~~",
+			"===============================================================================================~~~~~~~~~~",
 		],
 		[
 			"                                                               ",
-			"     @               2                                          ",
-			"  d                     c                        *^{bdw'n<gf>v",
+			"     @               2                                         ",
+			"    o                   c                        *^{bdwn<sgf>rvt",
 			"==============================================================="
 		]
 	];
@@ -364,17 +366,29 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					"vines", "lvl1"
 				],
 				"d": () =>[
-					rect(50, 60),
-					outline(4),
+					sprite('door'),
+					// rect(60, 60),
+					// outline(4),
+					// color(158, 128, 39),
 					anchor("bot"),
+					scale(0.8),
 					area(),
 					offscreen({ hide: true }),
 					"door", "lvl1"
+				],
+				"o": () =>[
+					sprite('doorOut'),
+					anchor("bot"),
+					scale(1),
+					area(),
+					offscreen({ hide: true }),
+					"doorOut", "lvl1"
 				],
 				"s": () =>[
 					sprite('shells'),
 					anchor("bot"),
 					area(),
+					scale(0.8),
 					offscreen({ hide: true }),
 					"shells", "lvl1"
 				]
@@ -401,6 +415,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		const net = level.get("net")[0];
 		const shells = level.get("shells")[0];
 		const door = level.get("door")[0];
+		const doorOut = level.get("doorOut")[0];
 		const backpack = add([
 			sprite('backpack'),
 			pos(925, 25),
@@ -443,6 +458,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		const items = [deer, rye, shells, net, vines];
 		const itemString = ["deer", "rye", "shells", "net", "vines"];
 
+
 		// arrays for npc quests that are completed by interacting with other npcs
 		const npcRequests = [weaver, gatherer, fisher];
 		const npcRequestsString = ["weaver", "gatherer", "fisher"];
@@ -459,7 +475,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		// function for assigning properties to each item collection
 		function itemStatus(item) {
 			item.collected = false;
-			item.collectionIdx = 0
+			item.collectionIdx = 0;
 		};
 
 		// iterates through each array to assign all sprites the appropriate properties
@@ -475,30 +491,26 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		// ----- LEVEL 2 ------
 
-
 		// door collision event to go to level 2
 		player.onCollideUpdate("door", () => {
 
 			// door only works once the builder's quest is done
-			if (builder.dialog === 3 || levelIdx === 1) {
+			if (hunter.dialog === 3) {
 				const doorPrompt = add([
-					pos(door.pos.x, 450),
+					pos(1736, 375),
 					anchor("center"),
 					text(`[test]Press spacebar to enter[/test]`, {
 						size: 18,
-						width: 300, // it'll wrap to next line when width exceeds this value
 						lineSpacing: 6,
 						letterSpacing: -1,
 						font: "apl386",
 
 						styles: {
-							"test": {
-								color: rgb(0, 0, 0)
-							}	
+							"test": {color: rgb(0, 0, 0)}	
 						}
 					}),
 					fixed(),
-					z(2)
+					z(100)
 				]);
 
 				// destroys door prompt once player walks away
@@ -508,74 +520,45 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 				// player presses space to go in/out of door
 				if (isKeyPressed("space")) {
-					if (levelIdx === 0) {
-							setBackground(211, 177, 89)
-							go("game", {
-								levelIdx: 1,
-							});
-					} else if (levelIdx === 1) {
-						setBackground(243, 251, 255)
-							go("game", {
-								levelIdx: 0,
-							});
-					}
+					setBackground(211, 177, 89)
+					go("game", {
+						levelIdx: 1,
+					});
 				}
 			}
 		})
 
-		
-		let textboxColor = [255,255,255]; // default textbox color to white
-		function dialogueShow (data, spriteName, dialogLine) {
-			const dataPoints = Object.keys(data);
 
-			for(let i=0; i<dataPoints.length;i++) {
-				let character = dataPoints[i]
-				let line;
+		// player collision for exiting dome
+		player.onCollideUpdate("doorOut", () => {
+			const doorPrompt = add([
+				pos(225, 375),
+				anchor("center"),
+				text(`[test]Press spacebar to exit[/test]`, {
+					size: 18,
+					lineSpacing: 6,
+					letterSpacing: -1,
+					font: "apl386",
 
-				// checking if character from json file matches function sprite input
-				if (character === spriteName) {
-					if (dialogLine === 0) {
-						line = data[character].opener;
-						textboxColor = [255,255,255];
-					} else if (dialogLine === 1) {
-						line = data[character].request;
-						textboxColor = [206, 249, 255];
-					} else if (dialogLine === 2) {
-						line = data[character].closer;
-						textboxColor = [217,243,186];
-					} else if (dialogLine === 3) {
-						line = data[character].seal;
-						textboxColor = [217,243,186];
+					styles: {
+						"test": {color: rgb(0, 0, 0)}	
 					}
-					return line;
-				}
-			}
-			return textboxColor;	
-		};
+				}),
+				fixed(),
+				z(8)
+			]);
 
-		
-		function itemCollection (data, itemName, spriteIndex, spriteName) {
-			const dataPoints = Object.keys(data);
-
-			let item = data[dataPoints[spriteIndex]].item;
-			let itemNum = itemString.indexOf(itemName);
-
-			// 	// checking if character from json file matches sprite input
-			if (item === itemName) {
-				spriteName.requestComplete = true;
-				items[itemNum].collectionIdx = 1;
+			if (isKeyPressed("space")) {
+				setBackground(243, 251, 255)
+						go("game", {
+							levelIdx: 0,
+						});
 			}
 
-			// pauses on gatherer and weaver quest completion to account for time to read fisher's dialog			
-			if (spriteName === fisher) {
-				wait(15, () => {
-					gatherer.requestComplete = true;
-					weaver.requestComplete = true;
-				})
-				
-			}
-		};
-		
+			wait(0.1, () => {
+				destroy(doorPrompt); 
+			});
+		})
 		
 
 		// ------ MOVEMENTS ----- 
@@ -621,7 +604,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			if (levelIdx === 0 && currCam.x < player.pos.x && player.pos.x <= 4700) {
 				camPos(player.pos.x, currCam.y);
 				// camera movement for outside
-			} else if (levelIdx === 1 && currCam.x < player.pos.x && player.pos.x <= 1260) {
+			} else if (levelIdx === 1 && currCam.x < player.pos.x && player.pos.x <= 1240) {
 				camPos(player.pos.x, currCam.y);
 				// camera movement for inside house
 			}
@@ -663,19 +646,22 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		// collision interactions with the chief's dialog
 		player.onCollideUpdate("chief", () => {
 
-			if(isKeyPressed("space") && chiefDialogueIndex < 3) {
-				chiefDialogueIndex++
+			if (isKeyPressed("space") && chiefDialogueIndex < 3) {
+				chiefDialogueIndex++;
 			}
 
 			addText(`${chiefDialogue[chiefDialogueIndex]}`);
 
 			// end of game overlay appears once chief is done talking
-			if (chiefDialogueIndex === 3) {
+			if (chiefDialogueIndex === 2) {
+				
 				wait (3, () => {
-					document.querySelector('#seal').className = '';
-					document.querySelector('#seal').style.zIndex = '3';
+					document.querySelector('#seal').classList.remove('hide');
+					document.querySelector('#seal').style.display = 'grid';
+					document.querySelector('#seal').style.zIndex = '4';
 					overlayBg.style.display = 'block';
-
+					
+					chiefDialogueIndex === 3
 				});
 			}
 		})
@@ -686,15 +672,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 				let npcNum = npcString.indexOf(npc);
 
 				// builder quest can only be completed once the weaver quest is completed
-				if (weaver.requestComplete === false) {
-					player.onCollideUpdate('builder', () => {
-						addText('I’m a bit busy right now, you can help the other villagers first.')
-					})
-				} else {
-					player.onCollideUpdate('builder', () => {
-						addText(dialogueShow(globalDataNpc, npc, builder.dialog));
-					})
-				}
 
 				addText(dialogueShow(globalDataNpc, npc, npcs[npcNum].dialog));
 
@@ -719,7 +696,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 				itemString.forEach(item =>
 					player.onCollideUpdate(`${item}`, () => {
 						
-						if (isKeyPressed("space")) {
+						if (npcs[npcNum].dialog === 1 && isKeyPressed("space") && item != "rye" && item !="shells") {
 							itemCollection(globalDataNpc, item, npcNum, npcs[npcNum]);
 							addItemText('Item Collected')
 						} 
@@ -727,6 +704,106 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 				)
 			})
 		)
+
+		// custom collide for builder to ensure their quest is done last
+		player.onCollideUpdate('builder', () => {
+			if (weaver.requestComplete === false) {
+					addText('I’m a bit busy right now, you can help the other villagers first.')
+			} else {
+				addText(dialogueShow(globalDataNpc, "builder", builder.dialog));
+
+				if (isKeyPressed("space")) {
+					if (builder.dialog === 1 && builder.requestComplete === true) {
+						builder.dialog = 2;
+					} else if (builder.dialog === 2 ) {
+						builder.dialog = 3;
+					} else if (builder.dialog === 0) {
+						builder.dialog = 1;
+					} else {
+						return builder.dialog;
+					}
+				} else {
+					wait(8, () => {
+						npcCollide(builder);
+					})
+				}
+	
+			}
+		})
+
+		
+
+		let textboxColor = [255,255,255]; // default textbox color to white
+		function dialogueShow (data, spriteName, dialogLine) {
+			const dataPoints = Object.keys(data);
+
+			for(let i=0; i<dataPoints.length;i++) {
+				let character = dataPoints[i]
+				let line;
+
+				// checking if character from json file matches function sprite input
+				if (character === spriteName) {
+					if (dialogLine === 0) {
+						line = data[character].opener;
+						textboxColor = [255,255,255];
+					} else if (dialogLine === 1) {
+						line = data[character].request;
+						textboxColor = [206, 249, 255];
+					} else if (dialogLine === 2) {
+						line = data[character].closer;
+						textboxColor = [217,243,186];
+					} else if (dialogLine === 3) {
+						line = data[character].seal;
+						textboxColor = [217,243,186];
+					}
+					return line;
+				}
+			}
+			return textboxColor;	
+		};
+
+		// function dialogSpeedUp (spriteNAme) {
+		// 	if (isKeyPressed("space")) {
+		// 		if (npcs[npcNum].dialog === 1 && npcs[npcNum].requestComplete === true) {
+		// 			npcs[npcNum].dialog = 2;
+		// 		} else if (npcs[npcNum].dialog === 2 ) {
+		// 			npcs[npcNum].dialog = 3;
+		// 		} else if (npcs[npcNum].dialog === 0) {
+		// 			npcs[npcNum].dialog = 1;
+		// 		} else {
+		// 			return npcs[npcNum].dialog;
+		// 		}
+		// 	} else {
+		// 		wait(8, () => {
+		// 			npcCollide(npcs[npcNum]);
+		// 		})
+		// 	}
+		// }
+		
+		function itemCollection (data, itemName, spriteIndex, spriteName) {
+			const dataPoints = Object.keys(data);
+
+			let item = data[dataPoints[spriteIndex]].item;
+			let itemNum = itemString.indexOf(itemName);
+
+			// 	// checking if character from json file matches sprite input
+			if (item === itemName) {
+				spriteName.requestComplete = true;
+				items[itemNum].collectionIdx = 1;
+			}
+
+			// pauses on gatherer and weaver quest completion to account for time to read fisher's dialog			
+			if (spriteName === fisher) {
+				wait(15, () => {
+					shells.collected = true;
+					gatherer.requestComplete = true;
+
+					rye.collected = true;
+					weaver.requestComplete = true;
+				})
+				
+			}
+		};
 
 
 		// creates sprite text and textboxs
@@ -816,6 +893,8 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			return spriteName.dialog;
 		}
 
+
+
 		// ------ INVENTORY SYSTEM ----- 
 
 		// backpack openning animation
@@ -882,9 +961,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			}
 		
 		}
-		
-		
-
 
 		// closes overlay
 		document.querySelector('#close').addEventListener('click',() => {
@@ -898,15 +974,19 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		// ------ END GAME ----- 
 		const endBtn = document.querySelector('#endBtn');
 		endBtn.addEventListener('click', function() {
-			document.querySelector('#seal').style.display = 'none';
-			document.querySelector('#credits').className = '';
+			document.querySelector('#seal').style.zIndex = '-5';
+			document.querySelector('#seal').style.zIndex = '-5';
+			
+
+			document.querySelector('#credits').classList.remove('hide');
+			document.querySelector('#credits').style.display = 'grid';
 		})
 
 		const creditsBtn = document.querySelector('#creditsBtn');
 		creditsBtn.addEventListener('click', function() {
 			overlayBg.className = 'hide';
 			document.querySelector('#credits').style.display = 'none';
-			document.querySelector('#credits').style.zIndex = '3';
+			document.querySelector('#credits').style.zIndex = '6';
 
 			document.querySelector('#canvas').focus();
 		})
@@ -915,7 +995,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		// ------ MAKES SURE PLAYER DOESN'T FLY OFF MAP ----- 
 
 		onUpdate(() => {
-
 			// numbers to enable run animation to work since sprite goes between these y positions during run animation
 			const playerPosY = [92.60, 92.97];
 			const randInx = randi(0,1);

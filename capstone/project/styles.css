@@ -60,6 +60,8 @@ button:hover {
     left: 50%;
     top: 40%;
     transform: translate(-50%, -50%);
+
+    z-index: 0;
 }
 
 /* ------ OPENING OVERLAY STYLING  ------- */
@@ -313,27 +315,43 @@ button:hover {
 #credits {
     height: 400px;
     z-index: 2;
+
+    justify-items: center;
 }
 
 #creditsContent {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    grid-template-rows: auto auto auto 0.25fr;
+    column-gap: 30px;
 
-    text-align: left;
+
+    /* text-align: left; */
     padding: 0px 15px;
 }
 
 #credits h3 {
     margin-top: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }
 
 #credits h4 {
     color: rgb(73, 104, 207);
     font-size: 21px;
-    margin-top: 15px;
+    margin-top: 3px;
     margin-bottom: 0;
+}
+
+.title {
+    font-size: 19px;
+    line-height: 1em;
+}
+
+#endBtn {
+    grid-column: 1 /  2;
+
+    align-items: center;
+    text-align: center;
 }
 
 a {
