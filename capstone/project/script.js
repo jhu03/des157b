@@ -170,7 +170,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	});
 
 	// character speed
-	const speed = 400;
+	const speed = 900;
 
 	// creating levels and loading sprites into levels
 	const levelSelect = [
@@ -699,7 +699,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		// custom collide for builder to ensure their quest is done last
 		player.onCollideUpdate('builder', () => {
-			if (weaver.requestComplete === false) {
+			if (fisher.requestComplete === false) {
 					addText('I’m a bit busy right now, you can help the other villagers first.')
 			} else {
 				addText(dialogueShow(globalDataNpc, "builder", builder.dialog));
@@ -710,7 +710,10 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					} else if (builder.dialog === 2 ) {
 						builder.dialog = 3;
 					} else if (builder.dialog === 0) {
-						builder.dialog = 1;
+
+						wait(15, () => {
+							builder.dialog = 1;
+						})
 					} else {
 						return builder.dialog;
 					}
@@ -754,23 +757,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			return textboxColor;	
 		};
 
-		// function dialogSpeedUp (spriteNAme) {
-		// 	if (isKeyPressed("space")) {
-		// 		if (npcs[npcNum].dialog === 1 && npcs[npcNum].requestComplete === true) {
-		// 			npcs[npcNum].dialog = 2;
-		// 		} else if (npcs[npcNum].dialog === 2 ) {
-		// 			npcs[npcNum].dialog = 3;
-		// 		} else if (npcs[npcNum].dialog === 0) {
-		// 			npcs[npcNum].dialog = 1;
-		// 		} else {
-		// 			return npcs[npcNum].dialog;
-		// 		}
-		// 	} else {
-		// 		wait(8, () => {
-		// 			npcCollide(npcs[npcNum]);
-		// 		})
-		// 	}
-		// }
 		
 		function itemCollection (data, itemName, spriteIndex, spriteName) {
 			const dataPoints = Object.keys(data);
@@ -787,10 +773,10 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			// pauses on gatherer and weaver quest completion to account for time to read fisher's dialog			
 			if (spriteName === fisher) {
 				wait(15, () => {
-					shells.collected = true;
+					shells.collectionIdx = 1;
 					gatherer.requestComplete = true;
 
-					rye.collected = true;
+					rye.collectionIdx = 1;
 					weaver.requestComplete = true;
 				})
 				
@@ -938,6 +924,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 		function updateInterface(item, data) {
 
+			// calling index of item status in json file
 			let itemNum = itemString.indexOf(item);
 
 			document.querySelector('#itemName').innerHTML = `${data[item].item}`;
@@ -946,6 +933,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 			document.querySelector('#status').innerHTML = `${data[item].itemStatus[items[itemNum].collectionIdx]}`;
 
+			// changes color of item status
 			if (items[itemNum].collectionIdx == 1) {
 				document.querySelector('#status').style.color = 'green';
 			} else {
