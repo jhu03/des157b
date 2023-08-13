@@ -170,7 +170,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	});
 
 	// character speed
-	const speed = 900;
+	const speed = 400;
 
 	// creating levels and loading sprites into levels
 	const levelSelect = [
@@ -367,9 +367,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 				],
 				"d": () =>[
 					sprite('door'),
-					// rect(60, 60),
-					// outline(4),
-					// color(158, 128, 39),
 					anchor("bot"),
 					scale(0.8),
 					area(),
@@ -459,11 +456,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		const itemString = ["deer", "rye", "shells", "net", "vines"];
 
 
-		// arrays for npc quests that are completed by interacting with other npcs
-		const npcRequests = [weaver, gatherer, fisher];
-		const npcRequestsString = ["weaver", "gatherer", "fisher"];
-
-
 		// function for assigning properties to all sprties
 		function dialogStatus(sprite) {
 			sprite.hasTalked = false;
@@ -495,7 +487,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		player.onCollideUpdate("door", () => {
 
 			// door only works once the builder's quest is done
-			if (hunter.dialog === 3) {
+			if (builder.dialog === 3) {
 				const doorPrompt = add([
 					pos(1736, 375),
 					anchor("center"),
