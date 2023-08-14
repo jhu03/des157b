@@ -178,7 +178,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			"                                                                                                        ",
 			"   @                                             ,                                                      ",
 			"        *                 ^     d b  t      < w    n  t         {     t g  rrffrff  v       >         cs",
-			"==============================================================================================~~~~~~~~~~~",
+			"=============================================================================================~~~~~~~~~~~",
 		],
 		[
 			"                                                               ",
@@ -402,7 +402,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		const coyote = level.get("coyote")[0];
 		const hunter = level.get("hunter")[0];
 		const weaver = level.get("weaver")[0];
-		const triBasket = level.get("triBasket")[0];
 		const vines = level.get("vines")[0];
 		const gatherer = level.get("gatherer")[0];
 		const fisher = level.get("fisher")[0];
@@ -411,8 +410,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		const redbud = level.get("redbud");
 		const net = level.get("net")[0];
 		const shells = level.get("shells")[0];
-		const door = level.get("door")[0];
-		const doorOut = level.get("doorOut")[0];
 		const backpack = add([
 			sprite('backpack'),
 			pos(925, 25),
@@ -663,8 +660,6 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			player.onCollideUpdate(`${npc}`, () => {
 				let npcNum = npcString.indexOf(npc);
 
-				// builder quest can only be completed once the weaver quest is completed
-
 				addText(dialogueShow(globalDataNpc, npc, npcs[npcNum].dialog));
 
 				// advances dialog if space is pressed
@@ -697,7 +692,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			})
 		)
 
-		// custom collide for builder to ensure their quest is done last
+		// custom collide for builder to ensure their quest is done last/after weaver quest
 		player.onCollideUpdate('builder', () => {
 			if (weaver.requestComplete === false) {
 					addText('I’m a bit busy right now, you can help the other villagers first.')
