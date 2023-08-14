@@ -629,7 +629,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		// chief dialog is different format from other villagers, so it's put in an array instead of the json file
 		const chiefDialogue = [
 			"Welcome to my home! I was just taking a rest.",
-			"I heard you've been helping the village out, and for that I am grateful.",
+			"I heard you've been helping the village out, and for that, I am grateful.",
 			"As a reward, take this. It was brought to me this morning, but I'm not sure what it is. I want you to have it.",
 			"Oh? Leaving so soon? Well, feel free to visit and help out again any time!"
 		];

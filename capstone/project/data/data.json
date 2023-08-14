@@ -1,29 +1,29 @@
 {
     "hunter" : {
-        "opener" : "What do you think of my fit? Cool isn’t it? I wear this to get closer to the deer so we don’t frighten them when we hunt!",
+        "opener" : "What do you think of my fit? Cool, right? I wear this to get closer to the deer so we don’t frighten them when we hunt!",
         "request" : "Speaking of the hunt, we’re going out soon. Can you help me find some deer?",
         "closer" : "Sweet, thanks! Here’s some berries from the manzanita bushes I just collected.",
-        "seal": "A seal piece? Hm, I haven't heard of this seal thing, but I will keep an eye out it.",
+        "seal": "A seal piece? Hm, I haven't heard of this seal thing, but I will keep an eye out for it.",
         "item" : "deer"
     },
     "weaver" : {
         "opener" : "Ugh, I’m so close to finishing this basket but I’m almost out of blue rye fibers!",
         "request" : "Please find some rye for me so I can finish this faster. I will trade you with something really cool!",
         "closer" : "Oh my goodness, you’re a life saver! I can definitely finish this basket now.",
-        "seal" : "The cool thing? I heard the chief found something in the forest today. No one knows what it is but it is quite shiny.",
+        "seal" : "The cool thing? I heard the chief found something in the forest today. No one knows what it is but it is quite shiny...",
         "item" : "rye"
     },
     "gatherer" : {
         "opener" : "Oh hey, don't trample the redbud and blue rye crops! I'm just about to harvest them.",
         "request" : "You’re looking for some blue rye? You’re in luck! We harvested some earlier. I’ll trade it for some clam shells.",
-        "closer" : "I can’t believe you got 5 clam shells that quickly, impressive! Here’s the rye fibers, as promised.",
-        "seal" : "I'm not sure what a seal is but I heard it was hard enough to smash open clams.",
+        "closer" : "I can’t believe you got clam shells that quickly, impressive! Here’s the rye fibers, as promised.",
+        "seal" : "I'm not sure what a seal is, but I heard it was hard enough to open clams.",
         "item" : "shells"
     },
     "fisher" : {
         "opener" : "Man, fishing sure is hard. I’m not used to this bone harpoon.",
-        "request" : "Maybe a net would work better? I saw some back in the village. I'll give you clam shells in exhange.",
-        "closer" : "Thanks for the help! I definitely can catch some ducks now. Here, take these shells as my token of gratitude.",
+        "request" : "Maybe a net would work better? I saw one back in the village. I'll give you clam shells in exhange.",
+        "closer" : "Thanks for the help! I definitely can catch some fish now. Here, take these shells as my token of gratitude.",
         "seal" : "The object? I heard it was a rare rock, something I’ve never seen before. The color looks a bit like wood or acorn…",
         "item" : "net"
     },
@@ -31,7 +31,7 @@
         "opener" : "Oh this? This is a dome house! We live in dome house made of earth and willow branches. You'll be surprised at how spacious it is inside.",
         "request" : "Great, you're here! Can you find me some more willow branches and grapevines? I need a few more supports for this dome house.",
         "closer" : "Amazing, thank you! We can definitely finish this by sundown.",
-        "seal" : "The chief? Oh, he's in this dome! You should ask him about that mysterious piece.",
+        "seal" : "The chief? Oh, he's in this dome! You should ask him about that mysterious object he found earlier.",
         "item" : "vines"
     }
 }
