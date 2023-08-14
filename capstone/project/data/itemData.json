@@ -1,13 +1,13 @@
 {
     "deer" : {
         "item" : "Deer",
-        "info" : "There were many methods to hunt deer that were specific to village regions. In one type of hunting, a hunter wears a deer headdress to get closer to the deer without alarming it. Deer was cooked and eaten fresh after a hunt or dried to make deer jerky, a common trade item. <br> <br> Deer headresses were also used in ceremonial dances.",
+        "info" : "There were many methods to hunt deer that are specific to village regions. In one type of hunting, a hunter wears a deer headdress to get closer to the deer without alarming it. Deer was cooked and eaten fresh after a hunt or dried to make deer jerky, a common trade item. <br> <br> Deer headresses were also used in ceremonial dances.",
         "image" : "images/deerPic.gif",
         "itemStatus" : ["Not Collected", "Collected"]
     },
     "deerGrass" : {
         "item" : "Deer Grass",
-        "info" : "Deer grass is used to weave baskets. Some grasses don't grow nor thrive enough to be used for weaving and other activities. <br><br> Deer like to take refuge, hide, and nest in the grass, which is why it is named after them. ",
+        "info" : "Deer grass is used for basket weaving. Deer like to take refuge, hide, and nest in the grass, which is why it is named after them. <br><br> Unfortunately, some grasses don't grow nor thrive enough to be used for weaving and other activities.",
         "image" : "images/deerGrassPic.png",
         "itemStatus" : ["Not Collected", "Collected"]
     },
