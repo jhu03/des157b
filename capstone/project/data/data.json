@@ -7,16 +7,16 @@
         "item" : "deer"
     },
     "weaver" : {
-        "opener" : "Ugh, I’m so close to finishing this basket but I’m almost out of blue rye fibers!",
-        "request" : "Please find some rye for me so I can finish this faster. I will trade you with something really cool!",
+        "opener" : "Ugh, I’m so close to finishing this basket but I’m almost out of deer grass fibers!",
+        "request" : "Please find some deer grass for me so I can finish this faster. I will trade you with something really cool!",
         "closer" : "Oh my goodness, you’re a life saver! I can definitely finish this basket now.",
         "seal" : "The cool thing? I heard the chief found something in the forest today. No one knows what it is but it is quite shiny...",
-        "item" : "rye"
+        "item" : "deerGrass"
     },
     "gatherer" : {
-        "opener" : "Oh hey, don't trample the redbud and blue rye crops! I'm just about to harvest them.",
-        "request" : "You’re looking for some blue rye? You’re in luck! We harvested some earlier. I’ll trade it for some clam shells.",
-        "closer" : "I can’t believe you got clam shells that quickly, impressive! Here’s the rye fibers, as promised.",
+        "opener" : "Oh hey, don't trample the redbud and deer grass crops! I'm just about to harvest them.",
+        "request" : "You’re looking for some deer grass? You’re in luck! We harvested some earlier. I’ll trade it for some clam shells.",
+        "closer" : "I can’t believe you got clam shells that quickly, impressive! Here’s the deer grass fibers, as promised.",
         "seal" : "I'm not sure what a seal is, but I heard it was hard enough to open clams.",
         "item" : "shells"
     },

@@ -87,7 +87,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	loadSprite('fisher', 'images/fisher.png');
 
 	// load sprite animations
-	loadSprite('rye', 'images/rye.png', {
+	loadSprite('deerGrass', 'images/deerGrass.png', {
 
 	});
 	loadSprite('deer', 'images/deer.png', {
@@ -170,15 +170,15 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	});
 
 	// character speed
-	const speed = 400;
+	const speed = 900;
 
 	// creating levels and loading sprites into levels
 	const levelSelect = [
 		[	
-			"                                                                                                        ",
-			"   @                                             ,                                                      ",
-			"        *                 ^     d b  t      < w    n  t         {     t g  rrffrff  v       >         cs",
-			"=============================================================================================~~~~~~~~~~~",
+			"                                                                                                          ",
+			"   @                                             ,                                                        ",
+			"        *                 ^     d b  t      < w    n  t         {ff     t g  frrffrff  v       >        cs",
+			"================================================================================================~~~~~~~~~~",
 		],
 		[
 			"                                                               ",
@@ -265,13 +265,13 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					z(2)
 				],
 				"f": () => [
-					sprite("rye"),
+					sprite("deerGrass"),
 					area(),
 					anchor("bot"),
-					scale(0.6),
+					scale(0.4),
 					z(2),
 					offscreen({ hide: true }),
-					"lvl1", "rye"
+					"lvl1", "deerGrass"
 				],
 				"r": () => [
 					sprite("redbud"),
@@ -406,7 +406,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		const gatherer = level.get("gatherer")[0];
 		const fisher = level.get("fisher")[0];
 		const builder = level.get("builder")[0];
-		const rye = level.get("rye");
+		const deerGrass = level.get("deerGrass");
 		const redbud = level.get("redbud");
 		const net = level.get("net")[0];
 		const shells = level.get("shells")[0];
@@ -449,8 +449,8 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		// consts are for updating sprite properties while strings are for function inputs
 		const npcs = [hunter, weaver, gatherer, fisher, builder];
 		const npcString = ["hunter", "weaver", "gatherer", "fisher", "builder"];
-		const items = [deer, rye, shells, net, vines];
-		const itemString = ["deer", "rye", "shells", "net", "vines"];
+		const items = [deer, deerGrass, shells, net, vines];
+		const itemString = ["deer", "deerGrass", "shells", "net", "vines"];
 
 
 		// function for assigning properties to all sprties
@@ -590,7 +590,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		// camera positioning follows player
 		player.onUpdate(() => {
 			let currCam = camPos();
-			if (levelIdx === 0 && currCam.x < player.pos.x && player.pos.x <= 4700) {
+			if (levelIdx === 0 && currCam.x < player.pos.x && player.pos.x <= 4800) {
 				camPos(player.pos.x, currCam.y);
 				// camera movement for outside
 			} else if (levelIdx === 1 && currCam.x < player.pos.x && player.pos.x <= 1240) {
@@ -683,7 +683,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 				itemString.forEach(item =>
 					player.onCollideUpdate(`${item}`, () => {
 						
-						if (npcs[npcNum].dialog === 1 && isKeyPressed("space") && item != "rye" && item !="shells") {
+						if (npcs[npcNum].dialog === 1 && isKeyPressed("space") && item != "deerGrass" && item !="shells") {
 							itemCollection(globalDataNpc, item, npcNum, npcs[npcNum]);
 							addItemText('Item Collected')
 						} 
@@ -770,7 +770,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 					shells.collectionIdx = 1;
 					gatherer.requestComplete = true;
 
-					rye.collectionIdx = 1;
+					deerGrass.collectionIdx = 1;
 					weaver.requestComplete = true;
 				})
 				
