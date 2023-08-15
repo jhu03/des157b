@@ -175,10 +175,10 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	// creating levels and loading sprites into levels
 	const levelSelect = [
 		[	
-			"                                                                                                          ",
-			"   @                                             ,                                                        ",
-			"        *                 ^     d b  t      < w    n  t         {ff     t g  frrffrff  v       >        cs",
-			"================================================================================================~~~~~~~~~~",
+			"                                                                                                         ",
+			"   @                                             ,                                                       ",
+			"        *                 ^     d b  t      < w    n  t         {ff    gt frrffrff   v       >        cs",
+			"===============================================================================================~~~~~~~~~~",
 		],
 		[
 			"                                                               ",
@@ -483,38 +483,40 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 		// door collision event to go to level 2
 		player.onCollideUpdate("door", () => {
 
-			// door only works once the builder's quest is done
-			if (builder.dialog === 3) {
-				const doorPrompt = add([
-					pos(1736, 375),
-					anchor("center"),
-					text(`[test]Press spacebar to enter[/test]`, {
-						size: 18,
-						lineSpacing: 6,
-						letterSpacing: -1,
-						font: "apl386",
+			if(isKeyPressed("space")) {
+				// door only works once the builder's quest is done
+				if (builder.dialog === 3) {
+					const doorPrompt = add([
+						pos(1736, 375),
+						anchor("center"),
+						text(`[test]Press spacebar to enter[/test]`, {
+							size: 18,
+							lineSpacing: 6,
+							letterSpacing: -1,
+							font: "apl386",
+	
+							styles: {
+								"test": {color: rgb(0, 0, 0)}	
+							}
+						}),
+						fixed()
+					]);
 
-						styles: {
-							"test": {color: rgb(0, 0, 0)}	
-						}
-					}),
-					fixed(),
-					z(100)
-				]);
-
-				// destroys door prompt once player walks away
-				wait(0.1, () => {
-					destroy(doorPrompt); 
-				});
-
-				// player presses space to go in/out of door
-				if (isKeyPressed("space")) {
-					setBackground(211, 177, 89)
-					go("game", {
-						levelIdx: 1,
+					// destroys door prompt once player walks away
+					wait(0.1, () => {
+						destroy(doorPrompt); 
 					});
-				}
+
+					// player presses space to go in/out of door
+					if (isKeyPressed("space")) {
+						setBackground(211, 177, 89)
+						go("game", {
+							levelIdx: 1,
+						});
+					}
+					}
 			}
+
 		})
 
 
