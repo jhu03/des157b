@@ -7,7 +7,7 @@
     },
     "deerGrass" : {
         "item" : "Deer Grass",
-        "info" : "Deer grass is used for basket weaving. Deer like to take refuge, hide, and nest in the grass, which is why it is named after them. <br><br> Unfortunately, some grasses don't grow nor thrive enough to be used for weaving and other activities.",
+        "info" : "Deer grass is used for basket weaving. Deer like to take refuge, hide, and nest in the grass, which is why it is named after them. <br><br> Unfortunately, some grasses don't thrive enough for weaving anymore.",
         "image" : "images/deerGrassPic.png",
         "itemStatus" : ["Not Collected", "Collected"]
     },
