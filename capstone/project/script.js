@@ -170,7 +170,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 	});
 
 	// character speed
-	const speed = 900;
+	const speed = 400;
 
 	// creating levels and loading sprites into levels
 	const levelSelect = [
